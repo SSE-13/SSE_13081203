@@ -1,4 +1,5 @@
 #自我介绍
+![icon](http://ww4.sinaimg.cn/mw690/9b6a9319jw1f1ed12h3eej20a10a1q3i.jpg)
 
 ##短小的个人资料
 * 姓名：**刘奕薇**
