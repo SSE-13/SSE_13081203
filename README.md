@@ -15,3 +15,19 @@
 * 我是班长，留个手机号好了，**13126561132**，有事可以联系我
 
 ##代码片段
+    #include<stdio.h>
+    #include<math.h>
+    main()
+    {
+	    int a=1,b=-1;
+ 	    double c=1.0;
+	    double d;
+	    do{
+		    a++;
+		    d=b*1.0/a;
+		    c=d+c;
+		    b=-b;
+	    }while(fabs(d)>0.001);
+	    printf("1-1/2+1/3…+1/99-1/100+…=%lf\n",c);
+    }
+
