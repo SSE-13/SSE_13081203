@@ -33,4 +33,4 @@
 	    printf("1-1/2+1/3…+1/99-1/100+…=%lf\n",c);
     }
 
-##*未来很美好！！！！！活给自己看！！！！！*
+##*未来很美好！！！！！活给自己看！！！！！aasfdgfgbdnigjgdrghvnushfnhdslufvcnesvnfjsdruhysd*
