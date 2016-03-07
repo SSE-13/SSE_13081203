@@ -161,7 +161,7 @@ text4.rotation = Math.PI/24*(-1);
 
 var text5 = new TextField();
 text5.x = 250;
-text5.y = 160;
+text5.y = 165;
 text5.filltext = '2D';
 text5.font = "95px Showcard Gothic";
 text5.color = '#b1b1b1';
@@ -169,7 +169,7 @@ text5.rotation = Math.PI/24*(-1);
 
 var text6 = new TextField();
 text6.x = 253;
-text6.y = 163;
+text6.y = 168;
 text6.filltext = '2D';
 text6.font = "95px Showcard Gothic";
 text6.color = '#ffffff';
