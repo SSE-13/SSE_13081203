@@ -175,14 +175,58 @@ text6.font = "95px Showcard Gothic";
 text6.color = '#ffffff';
 text6.rotation = Math.PI/24*(-1);
 
+var text7 = new TextField();
+text7.x = 40;
+text7.y = 200;
+text7.filltext = 'PLAYER1';
+text7.font = "30px Showcard Gothic";
+text7.color = '#59aff8';
+
+var text8 = new TextField();
+text8.x = 43;
+text8.y = 203;
+text8.filltext = 'PLAYER1';
+text8.font = "30px Showcard Gothic";
+text8.color = '#000000';
+
+var text9 = new TextField();
+text9.x = 235;
+text9.y = 200;
+text9.filltext = 'PLAYER2';
+text9.font = "30px Showcard Gothic";
+text9.color = '#ff5254';
+
+var text10 = new TextField();
+text10.x = 238;
+text10.y = 203;
+text10.filltext = 'PLAYER2';
+text10.font = "30px Showcard Gothic";
+text10.color = '#000000';
+
+var text11 = new TextField();
+text11.x = 90;
+text11.y = 250;
+text11.filltext = 'Cpu VS Cpu';
+text11.font = "40px Showcard Gothic";
+text11.color = '#fca00f';
+
+var text12 = new TextField();
+text12.x = 92;
+text12.y = 252;
+text12.filltext = 'Cpu VS Cpu';
+text12.font = "40px Showcard Gothic";
+text12.color = '#ffffff';
 
 var bitmap = new Bitmap();
-bitmap.source = 'wander-icon.jpg';
+bitmap.source = '2dgameicon.png';
+bitmap.x = 90;
+bitmap.y = 300;
 
 //渲染队列
-var renderQueue = [rect, text2, text4, text6, rect2, rect3, text1, text3, text5];
+var renderQueue = [rect, text2, text4, text6, text8, text10, rect2, rect3, text12, text1, text3,
+ text5, text7, text9, text11, bitmap];
 //资源加载列表
-var imageList = ['wander-icon.jpg'];
+var imageList = ['2dgameicon.png'];
 
 //先加载资源，加载成功之后执行渲染队列
 loadResource(imageList, function() {
