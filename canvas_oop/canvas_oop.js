@@ -59,11 +59,14 @@ var TextField = (function (_super) {
     __extends(TextField, _super);
     function TextField() {
         _super.apply(this, arguments);
+        this.font = "20px Arial";
+        this.color = '#000000';
+        this.filltext = 'HelloWorld';
     }
     TextField.prototype.render = function (context) {
-        context.font = "20px Arial";
-        context.fillStyle = '#000000';
-        context.fillText('HelloWorld', 0, 20);
+        context.font = this.font;
+        context.fillStyle = this.color;
+        context.fillText(this.filltext, 0, 20);
     };
     return TextField;
 }(DisplayObject));
@@ -96,22 +99,32 @@ function loadResource(imageList, callback) {
 var canvas = document.getElementById("game");
 var context = canvas.getContext("2d");
 var rect = new Rect();
-rect.width = 200;
-rect.height = 100;
-rect.color = '#00FF00';
+rect.width = 400;
+rect.height = 400;
+rect.color = '#00c7ce';
 var rect2 = new Rect();
-rect2.width = 300;
-rect2.height = 50;
-rect2.x = 200;
-rect2.y = 200;
-rect2.rotation = Math.PI / 8;
-rect2.color = '#00FFFF';
-var text = new TextField();
-text.x = 10;
+rect2.width = 400;
+rect2.height = 150;
+rect2.x = 0;
+rect2.y = 250;
+rect2.color = '#00c109';
+var rect3 = new Rect();
+rect3.width = 400;
+rect3.height = 75;
+rect3.x = 0;
+rect3.y = 325;
+rect3.color = '#2fb11d';
+var text1 = new TextField();
+text1.x = 80;
+text1.y = 80;
+text1.filltext = 'Soccer';
+text1.font = "60px Showcard Gothic";
+text1.color = '#f9aa45';
+text1.rotation = Math.PI / 24 * (-1);
 var bitmap = new Bitmap();
 bitmap.source = 'wander-icon.jpg';
 //渲染队列
-var renderQueue = [rect, rect2, text, bitmap];
+var renderQueue = [rect, rect2, rect3, text1];
 //资源加载列表
 var imageList = ['wander-icon.jpg'];
 //先加载资源，加载成功之后执行渲染队列
