@@ -6,6 +6,7 @@ var BOUNDS_BOTTOM = 400;
 var BOUNDS_LEFT = 0;
 var BOUNDS_RIGHT = 400;
 var BOUNCE = 0.95;
+var F = 0.65;
 /**
  * 计时器系统
  */
@@ -47,11 +48,22 @@ var Body = (function () {
         this.vy += duringTime * GRAVITY;
         this.x += duringTime * this.vx;
         this.y += duringTime * this.vy;
-        //反弹
-        if (this.y + this.height > BOUNDS_BOTTOM) {
-            this.vy = -BOUNCE * this.vy;
+        if (Math.abs(this.vy) < 0.08) {
+            this.vy = 0;
+            this.vx -= this.vx * F;
         }
-        //TODO： 左右越界反弹
+        else {
+            if (this.y + this.height > BOUNDS_BOTTOM) {
+                this.vy = -BOUNCE * this.vy;
+            }
+            //TODO： 左右越界反弹
+            if (this.x + this.width > BOUNDS_RIGHT) {
+                this.vx = -BOUNCE * this.vx;
+            }
+            if (this.x < BOUNDS_LEFT) {
+                this.vx = -BOUNCE * this.vx;
+            }
+        }
         //根据物体位置更新显示对象属性
         var displayObject = this.displayObject;
         displayObject.x = this.x;
@@ -62,15 +74,15 @@ var Body = (function () {
 var rect = new Rect();
 rect.width = 150;
 rect.height = 100;
-rect.color = '#FF0000';
+rect.color = '#000000';
 /**
  * 创建一个物体，其显示内容为一个长方形，受重力做平抛运动
  */
 var body = new Body(rect);
 body.width = rect.width;
 body.height = rect.height;
-body.vx = 5; //需要保证 vx 在 0-50的范围内行为正常
-body.vy = 0; //需要保证 vy 在 0-50的范围内行为正常
+body.vx = 10; //需要保证 vx 在 0-50的范围内行为正常
+body.vy = 10; //需要保证 vy 在 0-50的范围内行为正常
 var renderCore = new RenderCore();
 var ticker = new Ticker();
 renderCore.start([rect]);
