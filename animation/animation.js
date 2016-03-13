@@ -42,25 +42,32 @@ var Body = (function () {
         this.y = 0;
         this.width = 0;
         this.height = 0;
+        this.isLanded = false;
         this.displayObject = displayObject;
     }
     Body.prototype.onTicker = function (duringTime) {
-        if (Math.abs(this.vy) >= 0.05) {
-            this.vy += duringTime * GRAVITY;
-            this.x += duringTime * this.vx;
-            this.y += duringTime * this.vy;
-        }
-        if (Math.abs(this.vy) < 0.05) {
+        if (this.vy + duringTime * GRAVITY > 0 && this.vy < 0 // 如果在运行到弧顶时
+            && this.y + this.height >= BOUNDS_BOTTOM //正好”陷进去了“
+        ) {
+            this.y = BOUNDS_BOTTOM - this.height;
             this.vy = 0;
+        }
+        else {
+            this.vy = this.vy + duringTime * GRAVITY;
+        }
+        this.x += duringTime * this.vx;
+        this.y += duringTime * this.vy;
+        if (Math.abs(this.vy) < 0.05) {
             this.vx -= this.vx * F;
-            this.x += duringTime * this.vx;
-            this.y += duringTime * this.vy;
         }
         //反弹
-        if (this.y + this.height > BOUNDS_BOTTOM) {
+        if (this.y + this.height > BOUNDS_BOTTOM && this.vy > 0) {
             this.vy = -BOUNCE * this.vy;
         }
-        //TODO： 左右越界反弹
+        if (this.y < 0) {
+            this.vy = -BOUNCE * this.vy;
+        }
+        //左右越界反弹
         if (this.x + this.width > BOUNDS_RIGHT) {
             this.vx = -BOUNCE * this.vx;
         }
@@ -85,7 +92,7 @@ var body = new Body(rect);
 body.width = rect.width;
 body.height = rect.height;
 body.vx = 10; //需要保证 vx 在 0-50的范围内行为正常
-body.vy = 10; //需要保证 vy 在 0-50的范围内行为正常
+body.vy = 50; //需要保证 vy 在 0-50的范围内行为正常
 var renderCore = new RenderCore();
 var ticker = new Ticker();
 renderCore.start([rect]);
