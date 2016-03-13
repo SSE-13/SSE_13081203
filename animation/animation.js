@@ -45,24 +45,27 @@ var Body = (function () {
         this.displayObject = displayObject;
     }
     Body.prototype.onTicker = function (duringTime) {
-        this.vy += duringTime * GRAVITY;
-        this.x += duringTime * this.vx;
-        this.y += duringTime * this.vy;
-        if (Math.abs(this.vy) < 0.08) {
+        if (Math.abs(this.vy) >= 0.05) {
+            this.vy += duringTime * GRAVITY;
+            this.x += duringTime * this.vx;
+            this.y += duringTime * this.vy;
+        }
+        if (Math.abs(this.vy) < 0.05) {
             this.vy = 0;
             this.vx -= this.vx * F;
+            this.x += duringTime * this.vx;
+            this.y += duringTime * this.vy;
         }
-        else {
-            if (this.y + this.height > BOUNDS_BOTTOM) {
-                this.vy = -BOUNCE * this.vy;
-            }
-            //TODO： 左右越界反弹
-            if (this.x + this.width > BOUNDS_RIGHT) {
-                this.vx = -BOUNCE * this.vx;
-            }
-            if (this.x < BOUNDS_LEFT) {
-                this.vx = -BOUNCE * this.vx;
-            }
+        //反弹
+        if (this.y + this.height > BOUNDS_BOTTOM) {
+            this.vy = -BOUNCE * this.vy;
+        }
+        //TODO： 左右越界反弹
+        if (this.x + this.width > BOUNDS_RIGHT) {
+            this.vx = -BOUNCE * this.vx;
+        }
+        if (this.x < BOUNDS_LEFT) {
+            this.vx = -BOUNCE * this.vx;
         }
         //根据物体位置更新显示对象属性
         var displayObject = this.displayObject;

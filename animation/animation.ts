@@ -61,13 +61,16 @@ class Body {
 
     public onTicker(duringTime) {
         
-        this.vy += duringTime * GRAVITY;
-        this.x += duringTime * this.vx;
-        this.y += duringTime * this.vy;
-        
-        if(Math.abs(this.vy) < 0.08){
-             this.vy = 0;
-             this.vx -= this.vx * F;
+        if(Math.abs(this.vy) >= 0.05){
+            this.vy += duringTime * GRAVITY;
+            this.x += duringTime * this.vx;
+            this.y += duringTime * this.vy;
+        }
+        if(Math.abs(this.vy) < 0.05){
+            this.vy = 0;
+            this.vx -= this.vx * F;
+            this.x += duringTime * this.vx;
+            this.y += duringTime * this.vy;
         }
 
         //反弹
