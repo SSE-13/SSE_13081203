@@ -13,6 +13,8 @@ const BOUNCE = 0.95;
 
 const F = 0.65;
 
+const MIN_VY = 0.5;
+
 /**
  * 计时器系统
  */
@@ -61,30 +63,26 @@ class Body {
     }
 
     public onTicker(duringTime) {
-
-        if (this.vy + duringTime * GRAVITY > 0 && this.vy < 0 // 如果在运行到弧顶时
-            && this.y + this.height >= BOUNDS_BOTTOM //正好”陷进去了“
-        ) {
-            this.y = BOUNDS_BOTTOM - this.height;
-            this.vy = 0;
+        
+        if(!this.isLanded){
+            this.vy = this.vy + duringTime * GRAVITY;
+            this.x += duringTime * this.vx;
+            this.y += duringTime * this.vy;
         }
         else {
-            this.vy = this.vy + duringTime * GRAVITY;
-        }
-
-
-        this.x += duringTime * this.vx;
-        this.y += duringTime * this.vy;
-        if (Math.abs(this.vy) < 0.05) {
+            this.vy = 0;
             this.vx -= this.vx * F;
-
+            this.y = BOUNDS_BOTTOM - this.height;
+            this.x += duringTime * this.vx;
         }
 
         //反弹
         
-        if (this.y + this.height > BOUNDS_BOTTOM && this.vy > 0) {
+        if (this.y + this.height >= BOUNDS_BOTTOM && this.vy >= 0) {
             this.vy = -BOUNCE * this.vy;
-            
+            if(Math.abs(this.vy) <= MIN_VY && this.vy + duringTime * GRAVITY > 0){
+                this.isLanded = true;
+            }    
         }
         
         if (this.y < 0){

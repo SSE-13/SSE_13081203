@@ -7,6 +7,7 @@ var BOUNDS_LEFT = 0;
 var BOUNDS_RIGHT = 400;
 var BOUNCE = 0.95;
 var F = 0.65;
+var MIN_VY = 0.5;
 /**
  * 计时器系统
  */
@@ -46,23 +47,23 @@ var Body = (function () {
         this.displayObject = displayObject;
     }
     Body.prototype.onTicker = function (duringTime) {
-        if (this.vy + duringTime * GRAVITY > 0 && this.vy < 0 // 如果在运行到弧顶时
-            && this.y + this.height >= BOUNDS_BOTTOM //正好”陷进去了“
-        ) {
-            this.y = BOUNDS_BOTTOM - this.height;
-            this.vy = 0;
+        if (!this.isLanded) {
+            this.vy = this.vy + duringTime * GRAVITY;
+            this.x += duringTime * this.vx;
+            this.y += duringTime * this.vy;
         }
         else {
-            this.vy = this.vy + duringTime * GRAVITY;
-        }
-        this.x += duringTime * this.vx;
-        this.y += duringTime * this.vy;
-        if (Math.abs(this.vy) < 0.05) {
+            this.vy = 0;
             this.vx -= this.vx * F;
+            this.y = BOUNDS_BOTTOM - this.height;
+            this.x += duringTime * this.vx;
         }
         //反弹
-        if (this.y + this.height > BOUNDS_BOTTOM && this.vy > 0) {
+        if (this.y + this.height >= BOUNDS_BOTTOM && this.vy >= 0) {
             this.vy = -BOUNCE * this.vy;
+            if (Math.abs(this.vy) <= MIN_VY && this.vy + duringTime * GRAVITY > 0) {
+                this.isLanded = true;
+            }
         }
         if (this.y < 0) {
             this.vy = -BOUNCE * this.vy;
