@@ -65,14 +65,28 @@ var game;
         __extends(BoyBody, _super);
         function BoyBody() {
             _super.apply(this, arguments);
+            this.Dx = new Array();
+            this.Dy = new Array();
+            this.dx = new Array();
+            this.dy = new Array();
         }
         BoyBody.prototype.run = function (grid) {
             grid.setStartNode(0, 0);
             grid.setEndNode(10, 8);
-            var findpath = new astar.AStar();
-            findpath.setHeurisitic(findpath.diagonal);
-            var result = findpath.findPath(grid);
-            var path = findpath._path;
+            this.FindPath = new astar.AStar();
+            this.FindPath.setHeurisitic(this.FindPath.diagonal);
+            var result = this.FindPath.findPath(grid);
+            var path = this.FindPath._path;
+            for (var i = 0; i < this.FindPath._path.length; i++) {
+                this.Dx[i] = this.FindPath._path[i].x;
+                this.Dy[i] = this.FindPath._path[i].y;
+                console.log("(" + this.Dx[i] + "," + this.Dy[i] + ")");
+            }
+            for (var j = 1; j < this.FindPath._path.length; j++) {
+                this.dx[j] = this.Dx[j] - this.Dx[j - 1];
+                this.dy[j] = this.Dy[j] - this.Dy[j - 1];
+                console.log(this.dx[j] + "  " + this.dy[j]);
+            }
             console.log(path);
             console.log(grid.toString());
         };
@@ -86,6 +100,8 @@ var boyShape = new game.BoyShape();
 var world = new game.WorldMap();
 var body = new game.BoyBody(boyShape);
 body.run(world.grid);
+body.vx = 10;
+body.vy = 5;
 var renderCore = new RenderCore();
 renderCore.start([world, boyShape]);
 var ticker = new Ticker();
