@@ -23,12 +23,11 @@ var game;
             grid.setWalkable(5, 5, false);
         }
         WorldMap.prototype.render = function (context) {
-            // context.fillStyle = '#0000FF';
             context.strokeStyle = '#FF0000';
             context.beginPath();
             for (var i = 0; i < NUM_COLS; i++) {
                 for (var j = 0; j < NUM_ROWS; j++) {
-                    if (i == 5 && j <= 5) {
+                    if (!this.grid.getNode(i, j).walkable) {
                         context.fillRect(i * GRID_PIXEL_WIDTH, (j - 1) * GRID_PIXEL_HEIGHT, GRID_PIXEL_WIDTH, GRID_PIXEL_HEIGHT);
                         context.fillRect(i * GRID_PIXEL_WIDTH, j * GRID_PIXEL_HEIGHT, GRID_PIXEL_WIDTH, GRID_PIXEL_HEIGHT);
                         context.fillStyle = '#000000';
@@ -69,6 +68,7 @@ var game;
             this.Dy = new Array();
             this.dx = new Array();
             this.dy = new Array();
+            this.movestep = 1;
         }
         BoyBody.prototype.run = function (grid) {
             grid.setStartNode(0, 0);
@@ -91,6 +91,15 @@ var game;
             console.log(grid.toString());
         };
         BoyBody.prototype.onTicker = function (duringTime) {
+            if (this.x < NUM_ROWS * GRID_PIXEL_WIDTH && this.y < NUM_COLS * GRID_PIXEL_HEIGHT) {
+                if (this.movestep < this.FindPath._path.length - 1) {
+                    this.x += this.dx[this.movestep] * GRID_PIXEL_WIDTH;
+                    this.y += this.dy[this.movestep] * GRID_PIXEL_HEIGHT;
+                    this.movestep++;
+                    console.log("movestep:" + this.movestep);
+                    console.log(this.dx[this.movestep] + "  " + this.dy[this.movestep]);
+                }
+            }
         };
         return BoyBody;
     }(Body));
@@ -100,8 +109,8 @@ var boyShape = new game.BoyShape();
 var world = new game.WorldMap();
 var body = new game.BoyBody(boyShape);
 body.run(world.grid);
-body.vx = 10;
-body.vy = 5;
+// body.vx = 10;
+// body.vy = 5;
 var renderCore = new RenderCore();
 renderCore.start([world, boyShape]);
 var ticker = new Ticker();

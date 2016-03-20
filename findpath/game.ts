@@ -29,13 +29,12 @@ module game {
         }
 
         render(context: CanvasRenderingContext2D) {
-           // context.fillStyle = '#0000FF';
             context.strokeStyle = '#FF0000';
             context.beginPath();
             for (var i = 0; i < NUM_COLS; i++) {
                 for (var j = 0; j < NUM_ROWS; j++) {
                    
-                    if(i==5 && j<=5){
+                    if(!this.grid.getNode(i,j).walkable){
                         context.fillRect(i * GRID_PIXEL_WIDTH, (j-1) * GRID_PIXEL_HEIGHT, GRID_PIXEL_WIDTH, GRID_PIXEL_HEIGHT);
                         context.fillRect(i * GRID_PIXEL_WIDTH, j * GRID_PIXEL_HEIGHT, GRID_PIXEL_WIDTH, GRID_PIXEL_HEIGHT);
                         context.fillStyle = '#000000';
@@ -71,6 +70,7 @@ module game {
         public Dy = new Array();
         public dx = new Array();
         public dy = new Array();
+        public movestep = 1;
         public run(grid) {
             grid.setStartNode(0, 0);
             grid.setEndNode(10, 8);
@@ -78,13 +78,13 @@ module game {
             this.FindPath.setHeurisitic(this.FindPath.diagonal);
             var result = this.FindPath.findPath(grid);
             var path = this.FindPath._path;
-            for(var i=0; i<this.FindPath._path.length; i++)
+            for(var i=0; i <this.FindPath._path.length; i++)
             {
                 this.Dx[i] = this.FindPath._path[i].x;
                 this.Dy[i] = this.FindPath._path[i].y;
                 console.log("("+this.Dx[i]+","+this.Dy[i]+")");
             }
-            for(var j=1; j<this.FindPath._path.length; j++){
+            for(var j=1; j <this.FindPath._path.length; j++){
                 this.dx[j] = this.Dx[j] - this.Dx[j-1];
                 this.dy[j] = this.Dy[j] - this.Dy[j-1];
                 console.log(this.dx[j]+"  "+this.dy[j]);
@@ -95,11 +95,15 @@ module game {
         }
 
         public onTicker(duringTime) {
-            
-
-            
-            
-
+            if(this.x < NUM_ROWS * GRID_PIXEL_WIDTH && this.y < NUM_COLS * GRID_PIXEL_HEIGHT){
+                if(this.movestep < this.FindPath._path.length - 1){
+                    this.x += this.dx[this.movestep]*GRID_PIXEL_WIDTH;
+                    this.y += this.dy[this.movestep]*GRID_PIXEL_HEIGHT;           
+                    this.movestep++;
+                    console.log("movestep:"+this.movestep);
+                    console.log(this.dx[this.movestep]+"  "+this.dy[this.movestep]);
+                }       
+            }       
         }
     }
 }
@@ -111,8 +115,8 @@ var boyShape = new game.BoyShape();
 var world = new game.WorldMap();
 var body = new game.BoyBody(boyShape);
 body.run(world.grid);
-body.vx = 10;
-body.vy = 5;
+// body.vx = 10;
+// body.vy = 5;
 
 
 var renderCore = new RenderCore();
