@@ -96,12 +96,19 @@ module game {
 
         public onTicker(duringTime) {
             if(this.x < NUM_ROWS * GRID_PIXEL_WIDTH && this.y < NUM_COLS * GRID_PIXEL_HEIGHT){
-                if(this.movestep < this.FindPath._path.length - 1){
-                    this.x += this.dx[this.movestep]*GRID_PIXEL_WIDTH;
-                    this.y += this.dy[this.movestep]*GRID_PIXEL_HEIGHT;           
-                    this.movestep++;
-                    console.log("movestep:"+this.movestep);
-                    console.log(this.dx[this.movestep]+"  "+this.dy[this.movestep]);
+                if(this.movestep < this.FindPath._path.length-1){
+                    // if(this.vx*duringTime < this.dx[this.movestep]*GRID_PIXEL_WIDTH){
+                    //     this.x += this.vx*duringTime;
+                    // }                 
+                    // if(this.vy*duringTime < this.dy[this.movestep]*GRID_PIXEL_HEIGHT){
+                    //     this.y += this.vy*duringTime;
+                    // }
+                    // this.movestep++;
+                   this.x += this.dx[this.movestep]*GRID_PIXEL_WIDTH;
+                   this.y += this.dy[this.movestep]*GRID_PIXEL_HEIGHT;
+                   this.movestep++;
+                   console.log("movestep:"+this.movestep);
+                   console.log(this.dx[this.movestep]+"  "+this.dy[this.movestep]);
                 }       
             }       
         }
@@ -115,8 +122,8 @@ var boyShape = new game.BoyShape();
 var world = new game.WorldMap();
 var body = new game.BoyBody(boyShape);
 body.run(world.grid);
-// body.vx = 10;
-// body.vy = 5;
+body.vx = 15;
+body.vy = 15;
 
 
 var renderCore = new RenderCore();
