@@ -103,7 +103,9 @@ module game {
                     // if(this.vy*duringTime < this.dy[this.movestep]*GRID_PIXEL_HEIGHT){
                     //     this.y += this.vy*duringTime;
                     // }
-                    // this.movestep++;
+                    // if(this.x >= this.Dx[this.movestep]*GRID_PIXEL_WIDTH && this.y >= this.Dy[this.movestep]*GRID_PIXEL_HEIGHT){
+                    //     this.movestep++;
+                    // }
                    this.x += this.dx[this.movestep]*GRID_PIXEL_WIDTH;
                    this.y += this.dy[this.movestep]*GRID_PIXEL_HEIGHT;
                    this.movestep++;
