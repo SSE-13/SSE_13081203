@@ -22,7 +22,7 @@ module render {
         globalMatrix: render.Matrix;
 
         parent: DisplayObject;
-
+        
         constructor() {
             this.globalMatrix = new render.Matrix();
         }
@@ -35,15 +35,20 @@ module render {
             var skewY = angle;
 
             var localMatrix = new render.Matrix();
-            localMatrix.updateFromDisplayObject(this.x, this.y, this.scaleX, this.scaleY, this.rotation);
 
+            localMatrix.updateFromDisplayObject(this.x, this.y, this.scaleX, this.scaleY, this.rotation);
+           
             if (!parent) {
                 this.globalMatrix = localMatrix;
             }
             else {
                 //TODO:
                 // GLOBAL_MATRIX = PARENT_GLOBAL_MATRIX * LOCAL_MATRIX
-                this.globalMatrix = localMatrix;
+               
+                this.globalMatrix = parent.globalMatrix;
+                parent = human;
+              
+
             }
 
 
