@@ -4,7 +4,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var human = new render.DisplayObjectContainer();
-<<<<<<< HEAD
 var humanContainer = new render.DisplayObjectContainer();
 var head = new render.Bitmap();
 head.x = 10;
@@ -21,24 +20,19 @@ left_leg.y = 80;
 var right_leg = new render.Bitmap();
 right_leg.x = 40;
 right_leg.y = 80;
-=======
 var head = new render.Bitmap();
 var trunk = new render.Bitmap();
 var left_arm = new render.Bitmap();
 var right_arm = new render.Bitmap();
 var left_leg = new render.Bitmap();
 var right_leg = new render.Bitmap();
->>>>>>> 9895fbe89246f80f482d294c317115232dce6adc
 head.source = "head.jpg";
 trunk.source = "trunk.jpg";
 left_arm.source = "left_arm.jpg";
 right_arm.source = "right_arm.jpg";
 left_leg.source = "left_leg.jpg";
 right_leg.source = "right_leg.jpg";
-<<<<<<< HEAD
 humanContainer.addChild(human);
-=======
->>>>>>> 9895fbe89246f80f482d294c317115232dce6adc
 human.addChild(left_arm);
 human.addChild(right_arm);
 human.addChild(left_leg);
@@ -46,16 +40,7 @@ human.addChild(right_leg);
 human.addChild(head);
 human.addChild(trunk);
 var renderCore = new render.RenderCore();
-<<<<<<< HEAD
 renderCore.start(human, ["left_arm.jpg", "right_arm.jpg", "left_leg.jpg", "right_leg.jpg", "head.jpg", "trunk.jpg"]);
-=======
-renderCore.start(human, ["left_arm.jpg"]);
-renderCore.start(human, ["right_arm.jpg"]);
-renderCore.start(human, ["left_leg.jpg"]);
-renderCore.start(human, ["right_leg.jpg"]);
-renderCore.start(human, ["head.jpg"]);
-renderCore.start(human, ["trunk.jpg"]);
->>>>>>> 9895fbe89246f80f482d294c317115232dce6adc
 var HumanBody = (function (_super) {
     __extends(HumanBody, _super);
     function HumanBody() {
