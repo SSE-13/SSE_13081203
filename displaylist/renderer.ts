@@ -44,8 +44,14 @@ module render {
             else {
                 //TODO:
                 // GLOBAL_MATRIX = PARENT_GLOBAL_MATRIX * LOCAL_MATRIX
+<<<<<<< HEAD
                 this.globalMatrix = matrixAppendMatrix(parent.globalMatrix,localMatrix);
 
+=======
+               
+                this.globalMatrix = parent.globalMatrix;
+                parent = human;
+>>>>>>> 9895fbe89246f80f482d294c317115232dce6adc
               
 
             }
@@ -66,6 +72,7 @@ module render {
 
         }
     }
+<<<<<<< HEAD
     
     
     function matrixAppendMatrix(m1:Matrix,m2:Matrix):Matrix{
@@ -83,6 +90,8 @@ module render {
         
         
     }
+=======
+>>>>>>> 9895fbe89246f80f482d294c317115232dce6adc
 
     export class DisplayObjectContainer extends DisplayObject {
 

@@ -32,7 +32,12 @@ var render;
             else {
                 //TODO:
                 // GLOBAL_MATRIX = PARENT_GLOBAL_MATRIX * LOCAL_MATRIX
+<<<<<<< HEAD
                 this.globalMatrix = matrixAppendMatrix(parent.globalMatrix, localMatrix);
+=======
+                this.globalMatrix = parent.globalMatrix;
+                parent = human;
+>>>>>>> 9895fbe89246f80f482d294c317115232dce6adc
             }
             context.setTransform(this.globalMatrix.a, this.globalMatrix.b, this.globalMatrix.c, this.globalMatrix.d, this.globalMatrix.tx, this.globalMatrix.ty);
             this.render(context);
@@ -42,6 +47,7 @@ var render;
         return DisplayObject;
     }());
     render.DisplayObject = DisplayObject;
+<<<<<<< HEAD
     function matrixAppendMatrix(m1, m2) {
         var result = new render.Matrix();
         result.a = m1.a * m2.a + m1.b * m2.c;
@@ -52,6 +58,8 @@ var render;
         result.ty = m2.b * m1.tx + m2.d * m1.ty + m2.ty;
         return result;
     }
+=======
+>>>>>>> 9895fbe89246f80f482d294c317115232dce6adc
     var DisplayObjectContainer = (function (_super) {
         __extends(DisplayObjectContainer, _super);
         function DisplayObjectContainer() {
