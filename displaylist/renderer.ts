@@ -45,6 +45,7 @@ module render {
                 //TODO:
                 // GLOBAL_MATRIX = PARENT_GLOBAL_MATRIX * LOCAL_MATRIX
                 this.globalMatrix = matrixAppendMatrix(parent.globalMatrix,localMatrix);
+
               
 
             }
@@ -97,6 +98,7 @@ module render {
             this.children.push(child);
             child.parent = this;
         }
+
 
         render(context) {
             for (var i = 0; i < this.children.length; i++) {

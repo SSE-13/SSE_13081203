@@ -21,20 +21,12 @@ var right_leg = new render.Bitmap();
 right_leg.x = 40;
 right_leg.y = 80;
 
-var head = new render.Bitmap();
-var trunk = new render.Bitmap();
-var left_arm = new render.Bitmap();
-var right_arm = new render.Bitmap();
-var left_leg = new render.Bitmap();
-var right_leg = new render.Bitmap();
-
 head.source = "head.jpg";
 trunk.source = "trunk.jpg";
 left_arm.source = "left_arm.jpg";
 right_arm.source = "right_arm.jpg";
 left_leg.source = "left_leg.jpg";
 right_leg.source = "right_leg.jpg";
-
 
 humanContainer.addChild(human);
 human.addChild(left_arm);
@@ -65,14 +57,3 @@ var body = new HumanBody(human);
 body.vx = 3;
 body.y = 200; 
 ticker.start([body]);
-
-
-
-
-
-
-
-
-
-
-
