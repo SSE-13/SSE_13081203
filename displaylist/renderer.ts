@@ -44,7 +44,7 @@ module render {
             else {
                 //TODO:
                 // GLOBAL_MATRIX = PARENT_GLOBAL_MATRIX * LOCAL_MATRIX
-                this.globalMatrix = matrixAppendMatrix(parent.globalMatrix,localMatrix);
+                this.globalMatrix = matrixAppendMatrix(localMatrix,parent.globalMatrix);
 
               
 

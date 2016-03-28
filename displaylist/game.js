@@ -4,6 +4,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var human = new render.DisplayObjectContainer();
+human.x = -50;
+human.y = -100;
 var humanContainer = new render.DisplayObjectContainer();
 var head = new render.Bitmap();
 head.x = 10;
@@ -34,7 +36,7 @@ human.addChild(right_leg);
 human.addChild(head);
 human.addChild(trunk);
 var renderCore = new render.RenderCore();
-renderCore.start(human, ["left_arm.jpg", "right_arm.jpg", "left_leg.jpg", "right_leg.jpg", "head.jpg", "trunk.jpg"]);
+renderCore.start(humanContainer, ["left_arm.jpg", "right_arm.jpg", "left_leg.jpg", "right_leg.jpg", "head.jpg", "trunk.jpg"]);
 var HumanBody = (function (_super) {
     __extends(HumanBody, _super);
     function HumanBody() {
@@ -42,12 +44,12 @@ var HumanBody = (function (_super) {
     }
     HumanBody.prototype.onTicker = function (duringTime) {
         this.x += this.vx * duringTime;
-        this.rotation += Math.PI;
+        this.rotation += Math.PI * duringTime;
     };
     return HumanBody;
 }(Body));
 var ticker = new Ticker();
-var body = new HumanBody(human);
+var body = new HumanBody(humanContainer);
 body.vx = 3;
 body.y = 200;
 ticker.start([body]);
