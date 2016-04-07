@@ -18,6 +18,7 @@ module render {
         scaleX = 1;
         scaleY = 1;
         rotation = 0;
+       
 
         /**
          * 全局矩阵
@@ -97,12 +98,14 @@ module render {
 
 
         source;
+      
 
         render(context: CanvasRenderingContext2D) {
 
             var image = imagePool[this.source];
             if (image) {
                 context.drawImage(image, 0, 0);
+                
             }
             else {
                 context.font = "20px Arial";

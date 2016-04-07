@@ -55,6 +55,7 @@ class HumanBody extends Body {
 var ticker = new Ticker();
 var body = new HumanBody(humanContainer);
 body.y = 200; 
+body.x = 100;
 ticker.start([body]);
 
 
@@ -62,53 +63,83 @@ var eventCore = new events.EventCore();
 eventCore.init();
 
 var isHead = 0;
+var ClickedHead = false;
 var isLeg = 0;
+var ClickedLeg = false;
 
-var HitTest = (localPoint:math.Point,displayObject:render.DisplayObject) =>{
+var HeadHitTest = (localPoint:math.Point,displayObject:render.DisplayObject) =>{
     // alert (`点击位置为${localPoint.x},${localPoint.y}`);
     console.log(localPoint);
-    if(localPoint.x > 0  && localPoint.x <= 50 && localPoint.y > 0 && localPoint.y <= 50){
-        isHead += 1;
-    }
-    if(localPoint.x > -30 && localPoint.x < 10 && localPoint.y > 80 && localPoint.y < 250 
-    || localPoint.x > 40 && localPoint.x < 80 && localPoint.y > 80 && localPoint.y < 250){
-        isLeg += 1;
-    }
 
-    return true;
+    if(localPoint.x <= Math.abs(displayObject.x * 6) && localPoint.y <= Math.abs(displayObject.y)&&
+    localPoint.x > 0 && localPoint.y > 0){
+        isHead += 1;
+        ClickedHead = true;
+        
+    }
+    return ClickedHead;
+    
   
 }
 
-var OnClick = () => {
+var LegHitTest = (localPoint:math.Point,displayObject:render.DisplayObject) =>{
+    // alert (`点击位置为${localPoint.x},${localPoint.y}`);
+    console.log(localPoint);
+
+    if(localPoint.x > 0 && localPoint.x <=  Math.abs(displayObject.x * 2) && localPoint.y > 0 && localPoint.y < Math.abs(displayObject.y * 2)){
+        isLeg += 1;
+        ClickedLeg = true;
+    }
+
+    return ClickedLeg;
+  
+}
+
+var HeadOnClick = () => {
 
     if(isHead == 1){
-        body.vx *= -1;
-        body.vrotation *= -1;
+        if(body.vx!=0){
+            body.vx *= -1;
+            body.vrotation *= -1;
+        }
+        if(body.vx == 0){
+            isHead = 0;
+        }
+        
     }
+
+    if(isHead != 1){
+        body.vx = 5;
+        body.vrotation = Math.PI/2;
+        isHead = 0;
+    }
+    ClickedHead = false;
+    console.log("clickhead:"+isHead);
+    
+
+}
+
+var LegOnClick = () => {
     
     if(isLeg == 1){
-        if(isHead < 1){
-            isHead = 1;
-        }
+
         body.vx = 0;
         body.vrotation = 0;
         body.rotation = 0;
     }
-
-    if(isLeg >= 1 && isHead >= 2){
-        body.vx = 5;
-        body.vrotation = Math.PI/2;
-        isHead = 0;
+    if(isLeg >= 1){
+        
         isLeg = 0;
     }
-  console.log("clickhead:"+isHead);
-  console.log("clickleg:"+ isLeg);
+    ClickedLeg = false;
+    console.log("clickleg:"+ isLeg);
     
 
 }
 
-
-eventCore.register(head,HitTest,OnClick);
+eventCore.register(head,HeadHitTest,HeadOnClick);
+eventCore.register(left_leg,LegHitTest,LegOnClick);
+eventCore.register(right_leg,LegHitTest,LegOnClick);
 
 
 
