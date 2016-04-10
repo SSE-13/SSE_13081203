@@ -41,6 +41,7 @@ module editor {
 
         public setWalkable(value) {
             this.color = value ? "#0000FF" : "#FF0000";
+            this.num = value;
         }
     }
 }

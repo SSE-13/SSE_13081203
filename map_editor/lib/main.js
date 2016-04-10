@@ -7,14 +7,17 @@ function readFile() {
     var mapData = obj.map;
     return mapData;
 }
+var map = new Array();
 function createMapEditor() {
     var world = new editor.WorldMap();
     var rows = mapData.length;
     var cols = mapData[0].length;
-    for (var col = 0; col < rows; col++) {
-        for (var row = 0; row < cols; row++) {
+    for (var row = 0; row < rows; row++) {
+        map[row] = new Array();
+        for (var col = 0; col < cols; col++) {
             var tile = new editor.Tile();
             tile.setWalkable(mapData[row][col]);
+            map[row][col] = mapData[row][col];
             tile.x = col * editor.GRID_PIXEL_WIDTH;
             tile.y = row * editor.GRID_PIXEL_HEIGHT;
             tile.ownedCol = col;
@@ -44,17 +47,20 @@ function onTileClick(tile) {
     console.log(tile);
     switch (tile.color) {
         case '#FF0000':
-            tile.setWalkable(true);
+            tile.setWalkable(1);
             break;
         case '#0000FF':
-            tile.setWalkable(false);
+            tile.setWalkable(0);
             break;
         default:
             break;
     }
+    map[tile.ownedRow][tile.ownedCol] = tile.num;
 }
 function onSaveButtonClick() {
     console.log("save");
+    console.log(map);
+    //var data = [[],[],[],[]];
 }
 var mapData = readFile();
 var renderCore = new render.RenderCore();

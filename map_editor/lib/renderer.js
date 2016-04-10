@@ -74,6 +74,7 @@ var render;
         constructor(...args) {
             super(...args);
             this.color = '#FF0000';
+            this.num = 0;
             this.strokeColor = "#000000";
         }
         render(context) {

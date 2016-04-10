@@ -116,6 +116,7 @@ module render {
 
 
         color = '#FF0000';
+        num = 0;
 
         strokeColor = "#000000"
 
