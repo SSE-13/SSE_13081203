@@ -27,6 +27,19 @@ function createMapEditor() {
     }
     return world;
 }
+function Save() {
+    var SaveButton = new render.DisplayObjectContainer();
+    var Background = new render.Rect();
+    Background.width = 55;
+    Background.height = 30;
+    Background.color = '#00FFFF';
+    var title = new render.TextField();
+    title.filltext = '保存';
+    SaveButton.addChild(Background);
+    SaveButton.addChild(title);
+    eventCore.register(SaveButton, events.displayObjectRectHitTest, onSaveButtonClick);
+    return SaveButton;
+}
 function onTileClick(tile) {
     console.log(tile);
     switch (tile.color) {
@@ -40,9 +53,21 @@ function onTileClick(tile) {
             break;
     }
 }
+function onSaveButtonClick() {
+    console.log("save");
+}
 var mapData = readFile();
 var renderCore = new render.RenderCore();
 var eventCore = new events.EventCore();
 eventCore.init();
+var whole = new render.DisplayObjectContainer();
+whole.width = 600;
+whole.height = 600;
+whole.x = 0;
+whole.y = 0;
 var editor = createMapEditor();
-renderCore.start(editor);
+editor.x = 100;
+var save = Save();
+whole.addChild(editor);
+whole.addChild(save);
+renderCore.start(whole);

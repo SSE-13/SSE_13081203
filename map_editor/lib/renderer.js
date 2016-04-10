@@ -88,12 +88,19 @@ var render;
     }
     render.Rect = Rect;
     class TextField extends DisplayObject {
+        constructor(...args) {
+            super(...args);
+            this.font = "20px Arial";
+            this.color = '#000000';
+            this.filltext = 'HelloWorld';
+        }
         render(context) {
-            context.font = "20px Arial";
-            context.fillStyle = '#000000';
-            context.fillText('HelloWorld', 0, 20);
+            context.font = this.font;
+            context.fillStyle = this.color;
+            context.fillText(this.filltext, 0, 20);
         }
     }
+    render.TextField = TextField;
     var imagePool = {};
     function loadResource(imageList, callback) {
         var count = 0;
