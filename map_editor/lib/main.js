@@ -60,7 +60,14 @@ function onTileClick(tile) {
 function onSaveButtonClick() {
     console.log("save");
     console.log(map);
-    //var data = [[],[],[],[]];
+    var json = { "map": [map[0], map[1], map[2], map[3]] };
+    var obj = JSON.stringify(json);
+    var map_path = __dirname + "/map.json";
+    fs.writeFile(map_path, obj, function (err) {
+        if (err)
+            throw err;
+        console.log('It\'s saved!');
+    });
 }
 var mapData = readFile();
 var renderCore = new render.RenderCore();
