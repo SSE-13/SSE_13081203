@@ -23,14 +23,14 @@ function createMapEditor() {
 function onTileClick(tile) {
     Undo_map.push(JSON.parse(JSON.stringify(mapData)));
     storage.writeUndoFile(Undo_map);
-    UI(tile).x = 220;
-    UI(tile).y = 100;
-    stage.addChild(Attribute);
+    stage.addChild(UI(tile));
     mapData[tile.ownedRow][tile.ownedCol] = tile.num;
 }
 //UI
 function UI(tile) {
     var Attribute = new render.DisplayObjectContainer();
+    Attribute.x = 220;
+    Attribute.y = 100;
     var Background = new render.Rect();
     Background.width = 200;
     Background.height = 150;
@@ -44,25 +44,26 @@ function UI(tile) {
     postion.y = 10;
     Attribute.addChild(postion);
     var button = new ui.Button();
-    button.width = 55;
+    button.width = 100;
     button.height = 30;
     button.x = 10;
-    button.y = 70;
+    button.y = 50;
     if (mapData[tile.ownedRow][tile.ownedCol] == 1) {
         button.text = "不可走";
         button;
         button.onClick = function () {
             tile.setWalkable(0);
+            button.text = "可走";
         };
     }
     else {
         button.text = "可走";
         button.onClick = function () {
             tile.setWalkable(1);
+            button.text = "不可走";
         };
     }
     Attribute.addChild(button);
-    //renderCore.start(Attribute);
     return Attribute;
 }
 function Save() {
