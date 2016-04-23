@@ -29,6 +29,7 @@ var editor;
         }
         Tile.prototype.setWalkable = function (value) {
             this.color = value ? "#0000FF" : "#FF0000";
+            this.num = value;
         };
         return Tile;
     }(render.Rect));

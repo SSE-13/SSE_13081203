@@ -22,6 +22,14 @@ module data {
         }
         
         public saveFile(){
+            var json = {"map":[map[0], map[1], map[2], map[3]]};
+            var obj = JSON.stringify(json);
+            var map_path = __dirname + "/map.json";
+            fs.writeFile(map_path, obj, function (err) {
+               if (err) throw err;
+               console.log('It\'s saved!');
+            });
+
             
         }
         

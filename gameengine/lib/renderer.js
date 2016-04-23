@@ -108,6 +108,7 @@ var render;
         function Rect() {
             _super.apply(this, arguments);
             this.color = '#FF0000';
+            this.num = 0;
             this.strokeColor = "#000000";
         }
         Rect.prototype.render = function (context) {
