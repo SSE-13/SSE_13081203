@@ -16,12 +16,12 @@ function createMapEditor() {
             tile.width = editor.GRID_PIXEL_WIDTH;
             tile.height = editor.GRID_PIXEL_HEIGHT;
             world.addChild(tile);
-
+            map_tile.push(tile);
 
             eventCore.register(tile, events.displayObjectRectHitTest, onTileClick);
         }
     }
-    
+
     return world;
 
 }
@@ -29,7 +29,8 @@ function createMapEditor() {
 
 
 function onTileClick(tile: editor.Tile) {
-    
+    Undo_map.push(JSON.parse(JSON.stringify(mapData)));
+    storage.writeUndoFile(Undo_map);
     console.log(tile);
     /*switch (tile.color) {
                 case '#FF0000':
@@ -42,10 +43,12 @@ function onTileClick(tile: editor.Tile) {
                 default:
                     break;
             }*/
+            
+            //此处由花花进行修改
+            
     mapData[tile.ownedRow][tile.ownedCol] = tile.num;
 
-    Undo_map.push(JSON.parse(JSON.stringify(mapData)));
-    storage.writeUndoFile(Undo_map);
+    
     
    
     
@@ -77,6 +80,7 @@ function onSaveButtonClick(){
 
     console.log("save");
     console.log(mapData);
+
     storage.saveFile(mapData);
    
 }
@@ -105,7 +109,7 @@ function Undo() {
 function onUndoButtonClick(){
     console.log(Undo_map.length); 
     if(Undo_map.length <= 0){
-        console.log("No Undo");
+        alert("No Undo");
         
     }
     else{
@@ -113,6 +117,9 @@ function onUndoButtonClick(){
         mapData = Undo_map.pop();
         console.log(mapData);
         
+        for(var i=0; i < map_tile.length; i++){
+            map_tile[i].setWalkable(mapData[map_tile[i].ownedRow][map_tile[i].ownedCol]);
+        }
         
     }
        
@@ -124,6 +131,7 @@ storage.readFile();
 var mapData = storage.mapData;
 
 var Undo_map = new Array();
+var map_tile = new Array();
 
 var renderCore = new render.RenderCore();
 var eventCore = events.EventCore.getInstance();

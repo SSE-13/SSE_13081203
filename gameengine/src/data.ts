@@ -28,6 +28,7 @@ module data {
             fs.writeFile(map_path, obj, function (err) {
                if (err) throw err;
                console.log('It\'s saved!');
+               alert("It's saved!");
             });
 
             

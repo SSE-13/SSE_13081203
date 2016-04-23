@@ -24,6 +24,7 @@ var data;
                 if (err)
                     throw err;
                 console.log('It\'s saved!');
+                alert("It's saved!");
             });
         };
         Storage.prototype.writeUndoFile = function (undodata) {
