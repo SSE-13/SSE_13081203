@@ -21,8 +21,8 @@ module data {
             this.mapData = obj.map;
         }
         
-        public saveFile(){
-            var json = {"map":[map[0], map[1], map[2], map[3]]};
+        public saveFile(mapdata){
+            var json = {"map":[mapdata[0], mapdata[1], mapdata[2], mapdata[3]]};
             var obj = JSON.stringify(json);
             var map_path = __dirname + "/map.json";
             fs.writeFile(map_path, obj, function (err) {
@@ -32,6 +32,13 @@ module data {
 
             
         }
+        
+        public writeUndoFile(undodata) {
+            var map_path = __dirname + "/Undo_map.json"
+            var obj = JSON.stringify(undodata);
+            fs.writeFileSync(map_path, obj, "utf-8");
+
+}
         
         public mapData;
 

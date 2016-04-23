@@ -1,16 +1,11 @@
-var map = new Array();
-var Undo_map = new Array();
 function createMapEditor() {
     var world = new editor.WorldMap();
     var rows = mapData.length;
     var cols = mapData[0].length;
     for (var row = 0; row < rows; row++) {
-        map[row] = new Array();
         for (var col = 0; col < cols; col++) {
             var tile = new editor.Tile();
             tile.setWalkable(mapData[row][col]);
-            map[row][col] = mapData[row][col];
-            //Undo_map.push(map);
             tile.x = col * editor.GRID_PIXEL_WIDTH;
             tile.y = row * editor.GRID_PIXEL_HEIGHT;
             tile.ownedCol = col;
@@ -25,20 +20,20 @@ function createMapEditor() {
 }
 function onTileClick(tile) {
     console.log(tile);
-    /* switch (tile.color) {
-                 case '#FF0000':
-                     tile.setWalkable(1);
-                     break;
-                 case '#0000FF':
-                     tile.setWalkable(0);
-                     break;
-             
-                 default:
-                     break;
-             }*/
-    map[tile.ownedRow][tile.ownedCol] = tile.num;
-    Undo_map.push(map);
-    //console.log(Undo_map.pop());
+    /*switch (tile.color) {
+                case '#FF0000':
+                    tile.setWalkable(1);
+                    break;
+                case '#0000FF':
+                    tile.setWalkable(0);
+                    break;
+            
+                default:
+                    break;
+            }*/
+    mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+    Undo_map.push(JSON.parse(JSON.stringify(mapData)));
+    storage.writeUndoFile(Undo_map);
 }
 function Save() {
     var savebutton = new render.DisplayObjectContainer();
@@ -55,8 +50,8 @@ function Save() {
 }
 function onSaveButtonClick() {
     console.log("save");
-    console.log(map);
-    storage.saveFile();
+    console.log(mapData);
+    storage.saveFile(mapData);
 }
 function Undo() {
     var undobutton = new render.DisplayObjectContainer();
@@ -72,12 +67,20 @@ function Undo() {
     return undobutton;
 }
 function onUndoButtonClick() {
-    console.log("Undo");
-    console.log(Undo_map.pop());
+    console.log(Undo_map.length);
+    if (Undo_map.length <= 0) {
+        console.log("No Undo");
+    }
+    else {
+        console.log("Undo");
+        mapData = Undo_map.pop();
+        console.log(mapData);
+    }
 }
 var storage = data.Storage.getInstance();
 storage.readFile();
 var mapData = storage.mapData;
+var Undo_map = new Array();
 var renderCore = new render.RenderCore();
 var eventCore = events.EventCore.getInstance();
 eventCore.init();
