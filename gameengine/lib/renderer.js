@@ -89,6 +89,7 @@ var render;
         function Bitmap() {
             _super.apply(this, arguments);
         }
+        //num=0;
         Bitmap.prototype.render = function (context) {
             var image = imagePool[this.source];
             if (image) {
