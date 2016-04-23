@@ -48,7 +48,7 @@ module ui {
             this.label = new render.TextField();
             this.label.width = this.width;
             this.label.height = this.height;
-            this.label.textAlign = "center";
+            this.label.textAlign = "left";
             this.label.text = this.text;
             this.addChild(this.background);
             this.addChild(this.label);

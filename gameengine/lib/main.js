@@ -1,3 +1,4 @@
+var stage = new render.DisplayObjectContainer();
 function createMapEditor() {
     var world = new editor.WorldMap();
     var rows = mapData.length;
@@ -22,23 +23,52 @@ function createMapEditor() {
 function onTileClick(tile) {
     Undo_map.push(JSON.parse(JSON.stringify(mapData)));
     storage.writeUndoFile(Undo_map);
-    console.log(tile);
-    /*switch (tile.color) {
-                case '#FF0000':
-                    tile.setWalkable(1);
-                    break;
-                case '#0000FF':
-                    tile.setWalkable(0);
-                    break;
-            
-                default:
-                    break;
-            }*/
-    //此处由花花进行修改
+    UI(tile).x = 220;
+    UI(tile).y = 100;
+    stage.addChild(Attribute);
     mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+}
+//UI
+function UI(tile) {
+    var Attribute = new render.DisplayObjectContainer();
+    var Background = new render.Rect();
+    Background.width = 200;
+    Background.height = 150;
+    Background.color = '#cecdcd';
+    Attribute.addChild(Background);
+    var X = tile.ownedRow + 1;
+    var Y = tile.ownedCol + 1;
+    var postion = new render.TextField();
+    postion.text = X + '行 ' + Y + '列';
+    postion.x = 10;
+    postion.y = 10;
+    Attribute.addChild(postion);
+    var button = new ui.Button();
+    button.width = 55;
+    button.height = 30;
+    button.x = 10;
+    button.y = 70;
+    if (mapData[tile.ownedRow][tile.ownedCol] == 1) {
+        button.text = "不可走";
+        button;
+        button.onClick = function () {
+            tile.setWalkable(0);
+        };
+    }
+    else {
+        button.text = "可走";
+        button.onClick = function () {
+            tile.setWalkable(1);
+        };
+    }
+    Attribute.addChild(button);
+    //renderCore.start(Attribute);
+    return Attribute;
 }
 function Save() {
     var savebutton = new render.DisplayObjectContainer();
+    savebutton.width = 55;
+    savebutton.height = 30;
     var Background = new render.Rect();
     Background.width = 55;
     Background.height = 30;
@@ -57,6 +87,8 @@ function onSaveButtonClick() {
 }
 function Undo() {
     var undobutton = new render.DisplayObjectContainer();
+    undobutton.width = 55;
+    undobutton.height = 30;
     var Background = new render.Rect();
     Background.width = 55;
     Background.height = 30;
@@ -91,12 +123,12 @@ var renderCore = new render.RenderCore();
 var eventCore = events.EventCore.getInstance();
 eventCore.init();
 var save = Save();
-save.y = 200;
+save.x = -75;
 var undo = Undo();
-undo.x = 100;
-undo.y = 200;
+undo.x = -75;
+undo.y = 50;
 var mapEditor = createMapEditor();
-var stage = new render.DisplayObjectContainer();
+//var stage = new render.DisplayObjectContainer();
 stage.addChild(mapEditor);
 var panel = new editor.ControlPanel();
 panel.x = 300;
