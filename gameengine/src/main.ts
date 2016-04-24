@@ -221,12 +221,13 @@ panel.x = 500;
 stage.addChild(save);
 stage.addChild(undo);
 stage.addChild(button);
-stage.addChild(Materia)
+stage.addChild(Materia);
 
 
 renderCore.start(stage,["Wall3.jpg","Wall4.jpg"]);
 
 renderCore.start(stage);
+
 
 
 
