@@ -27,11 +27,6 @@ var data;
                 alert("It's saved!");
             });
         };
-        Storage.prototype.writeUndoFile = function (undodata) {
-            var map_path = __dirname + "/Undo_map.json";
-            var obj = JSON.stringify(undodata);
-            fs.writeFileSync(map_path, obj, "utf-8");
-        };
         return Storage;
     }());
     data.Storage = Storage;

@@ -34,12 +34,6 @@ module data {
             
         }
         
-        public writeUndoFile(undodata) {
-            var map_path = __dirname + "/Undo_map.json"
-            var obj = JSON.stringify(undodata);
-            fs.writeFileSync(map_path, obj, "utf-8");
-
-}
         
         public mapData;
 
