@@ -69,7 +69,7 @@ function onTileClick(tile: editor.Tile) {
 function UI(tile: editor.Tile) {
    
     var Attribute = new render.DisplayObjectContainer();
-    Attribute.x=220;
+    Attribute.x=420;
     Attribute.y=50;
     var Background = new render.Rect();
     Background.width = 200;
@@ -196,12 +196,12 @@ var eventCore = events.EventCore.getInstance();
 eventCore.init();
 
 var save = Save();
-save.x = 220;
+save.x = 420;
 var undo = Undo();
-undo.x = 350;
+undo.x = 550;
 
 var Materia = materia();
-Materia.x = 220;
+Materia.x = 420;
 Materia.y=130;
 
 var mapEditor = createMapEditor();
@@ -212,21 +212,21 @@ var button = new ui.Button();
 button.width = 200;
 button.height = 30;
 button.color = "#cecdcd"
-button.x=220;
+button.x=420;
 button.y=100;
 
 var panel = new editor.ControlPanel();
-panel.x = 300;
+panel.x = 500;
 
 stage.addChild(save);
 stage.addChild(undo);
 stage.addChild(button);
 stage.addChild(Materia)
 
-<<<<<<< HEAD
+
 renderCore.start(stage,["Wall3.jpg","Wall4.jpg"]);
-=======
+
 renderCore.start(stage);
 
 
->>>>>>> 5f619e15397937900f486b9944143a478c04e02d
+
