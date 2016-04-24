@@ -121,7 +121,7 @@ function materia() {
         M_button[i].width = 100;
         M_button[i].height = 30;
         M_button[i].color = '#cecdcd';
-        M_button[i].y = i * 30;
+        M_button[i].y = Math.floor((i - 1) / 2) * 30;
         M_button[i].x = Math.abs((i % 2 - 1) * 100);
         materia.addChild(M_button[i]);
     }
@@ -141,7 +141,7 @@ var undo = Undo();
 undo.x = 350;
 var Materia = materia();
 Materia.x = 220;
-Materia.y = 100;
+Materia.y = 130;
 var mapEditor = createMapEditor();
 stage.addChild(mapEditor);
 var button = new ui.Button();
