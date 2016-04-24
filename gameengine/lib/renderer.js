@@ -88,11 +88,14 @@ var render;
         __extends(Bitmap, _super);
         function Bitmap() {
             _super.apply(this, arguments);
+            this.num = 0;
+            this.width = 150;
+            this.height = 150;
         }
         Bitmap.prototype.render = function (context) {
             var image = imagePool[this.source];
             if (image) {
-                context.drawImage(image, 0, 0);
+                context.drawImage(image, 0, 0, this.width, this.height);
             }
             else {
                 context.font = "20px Arial";

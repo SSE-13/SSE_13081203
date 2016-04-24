@@ -28,7 +28,7 @@ module editor {
     }
 
 
-    export class Tile extends render.Rect {
+    export class Tile extends render.Bitmap {
 
 
         public ownedRow: number;
@@ -40,7 +40,9 @@ module editor {
         }
 
         public setWalkable(value) {
-            this.color = value ? "#0000FF" : "#FF0000";
+            // this.color = value ? "#0000FF" : "#FF0000";
+            this.source = value ? "Wall3.jpg":"Wall4.jpg";
+            console.log("777");
             this.num = value;
         }
     }

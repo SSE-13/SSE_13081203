@@ -142,4 +142,4 @@ stage.addChild(mapEditor);
 stage.addChild(save);
 stage.addChild(undo);
 //stage.addChild(panel);
-renderCore.start(stage);
+renderCore.start(stage, ["Wall3.jpg", "Wall4.jpg"]);
