@@ -12,9 +12,11 @@ var ui;
             var _this = this;
             _super.call(this);
             this._text = "label";
+            this._color = '#FF0000';
             this.background = new render.Rect();
             this.background.width = this.width;
             this.background.height = this.height;
+            this.background.color = this.color;
             this.label = new render.TextField();
             this.label.width = this.width;
             this.label.height = this.height;
@@ -35,6 +37,17 @@ var ui;
             set: function (value) {
                 this._text = value;
                 this.label.text = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(Button.prototype, "color", {
+            get: function () {
+                return this._color;
+            },
+            set: function (value) {
+                this._color = value;
+                this.background.color = value;
             },
             enumerable: true,
             configurable: true

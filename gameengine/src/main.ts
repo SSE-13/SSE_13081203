@@ -36,9 +36,33 @@ function onTileClick(tile: editor.Tile) {
     Undo_map.push(JSON.parse(JSON.stringify(mapData)));
     storage.writeUndoFile(Undo_map);
 
+    stage.addChild(UI(tile)); 
+    
+     if(tile.num==1){
+        button.text="不可走";
+        button.color = '#0000FF';
+    }else{
+        button.text="可走";
+        button.color = '#FF0000';
+    }
+    button.onClick = ()=> {
 
-    stage.addChild(UI(tile));       
-    mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        if(tile.num==1){
+            tile.setWalkable(0);
+            console.log(tile);
+            button.text="可走";
+            button.color = '#FF0000';
+           
+        }else{
+            tile.setWalkable(1);
+            console.log(tile);
+            button.text="不可走";
+            button.color = '#0000FF';
+           
+        }
+        mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+    }      
+
 }
 
 //UI
@@ -49,7 +73,7 @@ function UI(tile: editor.Tile) {
     Attribute.y=50;
     var Background = new render.Rect();
     Background.width = 200;
-    Background.height = 150;
+    Background.height = 50;
     Background.color = '#cecdcd';
     Attribute.addChild(Background);
     
@@ -61,31 +85,6 @@ function UI(tile: editor.Tile) {
     postion.y=10;
     Attribute.addChild(postion);
     
-    var button = new ui.Button();
-    button.width = 100;
-    button.height = 30;
-    button.x=10;
-    button.y=50;
-    if(mapData[tile.ownedRow][tile.ownedCol]==1){
-        button.text="不可走";
-    }else{
-        button.text="可走";
-    }
-    console.log(tile);
-    button.onClick = ()=> {
-        console.log(tile);
-        if(mapData[tile.ownedRow][tile.ownedCol]==1){
-            tile.setWalkable(0);
-            console.log(tile);
-            button.text="可走";
-            mapData[tile.ownedRow][tile.ownedCol] = 0;
-        }else{
-            tile.setWalkable(1);
-            button.text="不可走";
-            mapData[tile.ownedRow][tile.ownedCol] = 1;
-        }
-    }
-    Attribute.addChild(button);
     return Attribute; 
 }
          
@@ -169,6 +168,7 @@ var mapData = storage.mapData;
 var Undo_map = new Array();
 var map_tile = new Array();
 
+
 var renderCore = new render.RenderCore();
 var eventCore = events.EventCore.getInstance();
 eventCore.init();
@@ -181,13 +181,19 @@ var mapEditor = createMapEditor();
 
 stage.addChild(mapEditor);
 
+var button = new ui.Button();
+button.width = 100;
+button.height = 30;
+button.x=250;
+button.y=250;
 
-//var panel = new editor.ControlPanel();
-//panel.x = 300;
+var panel = new editor.ControlPanel();
+panel.x = 300;
 //panel.addChild(save);
 //panel.addChild(undo);
 stage.addChild(save);
 stage.addChild(undo);
+stage.addChild(button);
 
 //stage.addChild(panel);
 

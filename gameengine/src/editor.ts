@@ -50,14 +50,14 @@ module editor {
         
         constructor(){
             super();
-            var button = new ui.Button();
+            /*var button = new ui.Button();
             button.text = "Hello";
             button.width = 100;
             button.height = 50;
             this.addChild(button);
             button.onClick = ()=> {
                 alert(111);
-            }
+            }*/
         }
         
     }

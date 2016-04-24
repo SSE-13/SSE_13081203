@@ -24,7 +24,29 @@ function onTileClick(tile) {
     Undo_map.push(JSON.parse(JSON.stringify(mapData)));
     storage.writeUndoFile(Undo_map);
     stage.addChild(UI(tile));
-    mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+    if (tile.num == 1) {
+        button.text = "不可走";
+        button.color = '#0000FF';
+    }
+    else {
+        button.text = "可走";
+        button.color = '#FF0000';
+    }
+    button.onClick = function () {
+        if (tile.num == 1) {
+            tile.setWalkable(0);
+            console.log(tile);
+            button.text = "可走";
+            button.color = '#FF0000';
+        }
+        else {
+            tile.setWalkable(1);
+            console.log(tile);
+            button.text = "不可走";
+            button.color = '#0000FF';
+        }
+        mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+    };
 }
 //UI
 function UI(tile) {
@@ -33,7 +55,7 @@ function UI(tile) {
     Attribute.y = 50;
     var Background = new render.Rect();
     Background.width = 200;
-    Background.height = 150;
+    Background.height = 50;
     Background.color = '#cecdcd';
     Attribute.addChild(Background);
     var X = tile.ownedRow + 1;
@@ -43,33 +65,6 @@ function UI(tile) {
     postion.x = 10;
     postion.y = 10;
     Attribute.addChild(postion);
-    var button = new ui.Button();
-    button.width = 100;
-    button.height = 30;
-    button.x = 10;
-    button.y = 50;
-    if (mapData[tile.ownedRow][tile.ownedCol] == 1) {
-        button.text = "不可走";
-    }
-    else {
-        button.text = "可走";
-    }
-    console.log(tile);
-    button.onClick = function () {
-        console.log(tile);
-        if (mapData[tile.ownedRow][tile.ownedCol] == 1) {
-            tile.setWalkable(0);
-            console.log(tile);
-            button.text = "可走";
-            mapData[tile.ownedRow][tile.ownedCol] = 0;
-        }
-        else {
-            tile.setWalkable(1);
-            button.text = "不可走";
-            mapData[tile.ownedRow][tile.ownedCol] = 1;
-        }
-    };
-    Attribute.addChild(button);
     return Attribute;
 }
 function Save() {
@@ -135,11 +130,17 @@ var undo = Undo();
 undo.x = 350;
 var mapEditor = createMapEditor();
 stage.addChild(mapEditor);
-//var panel = new editor.ControlPanel();
-//panel.x = 300;
+var button = new ui.Button();
+button.width = 100;
+button.height = 30;
+button.x = 250;
+button.y = 250;
+var panel = new editor.ControlPanel();
+panel.x = 300;
 //panel.addChild(save);
 //panel.addChild(undo);
 stage.addChild(save);
 stage.addChild(undo);
+stage.addChild(button);
 //stage.addChild(panel);
 renderCore.start(stage);
