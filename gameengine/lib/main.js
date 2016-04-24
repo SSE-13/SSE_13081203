@@ -26,24 +26,20 @@ function onTileClick(tile) {
     stage.addChild(UI(tile));
     if (tile.num == 1) {
         button.text = "不可走";
-        button.color = '#0000FF';
     }
     else {
         button.text = "可走";
-        button.color = '#FF0000';
     }
     button.onClick = function () {
         if (tile.num == 1) {
             tile.setWalkable(0);
             console.log(tile);
             button.text = "可走";
-            button.color = '#FF0000';
         }
         else {
             tile.setWalkable(1);
             console.log(tile);
             button.text = "不可走";
-            button.color = '#0000FF';
         }
         mapData[tile.ownedRow][tile.ownedCol] = tile.num;
     };
@@ -116,6 +112,21 @@ function onUndoButtonClick() {
         }
     }
 }
+function materia() {
+    var materia = new render.DisplayObjectContainer();
+    var M_button = new Array();
+    for (var i = 1; i < 9; i++) {
+        M_button[i] = new ui.Button();
+        M_button[i].text = '素材' + i;
+        M_button[i].width = 100;
+        M_button[i].height = 30;
+        M_button[i].color = '#cecdcd';
+        M_button[i].y = i * 30;
+        M_button[i].x = Math.abs((i % 2 - 1) * 100);
+        materia.addChild(M_button[i]);
+    }
+    return materia;
+}
 var storage = data.Storage.getInstance();
 storage.readFile();
 var mapData = storage.mapData;
@@ -128,13 +139,17 @@ var save = Save();
 save.x = 220;
 var undo = Undo();
 undo.x = 350;
+var Materia = materia();
+Materia.x = 220;
+Materia.y = 100;
 var mapEditor = createMapEditor();
 stage.addChild(mapEditor);
 var button = new ui.Button();
-button.width = 100;
+button.width = 200;
 button.height = 30;
-button.x = 250;
-button.y = 250;
+button.x = 220;
+button.y = 100;
+button.color = '#cecdcd';
 var panel = new editor.ControlPanel();
 panel.x = 300;
 //panel.addChild(save);
@@ -142,5 +157,7 @@ panel.x = 300;
 stage.addChild(save);
 stage.addChild(undo);
 stage.addChild(button);
+stage.addChild(Materia);
 //stage.addChild(panel);
+//var a=new materiabutton; 
 renderCore.start(stage);
