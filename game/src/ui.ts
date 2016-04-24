@@ -13,15 +13,6 @@ module ui {
             this._text = value;
             this.label.text = value;
         }
-        
-        public get color(): string {
-            return this._color;
-        }
-
-        public set color(value: string) {
-            this._color = value;
-            this.background.color = value;
-        }
 
         public get width(): number {
             return this._width;
@@ -45,7 +36,6 @@ module ui {
         private background: render.Rect;
         private label: render.TextField;
         private _text: string = "label";
-        private _color:string = '#FF0000';
 
 
 
@@ -55,7 +45,6 @@ module ui {
             this.background = new render.Rect();
             this.background.width = this.width;
             this.background.height = this.height;
-            this.background.color = this.color;
             this.label = new render.TextField();
             this.label.width = this.width;
             this.label.height = this.height;

@@ -28,26 +28,23 @@ var editor;
             _super.call(this);
         }
         Tile.prototype.setWalkable = function (value) {
-            // this.color = value ? "#0000FF" : "#FF0000";
-            this.source = value ? "Wall3.jpg" : "Wall4.jpg";
-            console.log("777");
-            this.num = value;
+            this.color = value ? "#0000FF" : "#FF0000";
         };
         return Tile;
-    }(render.Bitmap));
+    }(render.Rect));
     editor.Tile = Tile;
     var ControlPanel = (function (_super) {
         __extends(ControlPanel, _super);
         function ControlPanel() {
             _super.call(this);
-            /*var button = new ui.Button();
+            var button = new ui.Button();
             button.text = "Hello";
             button.width = 100;
             button.height = 50;
             this.addChild(button);
-            button.onClick = ()=> {
+            button.onClick = function () {
                 alert(111);
-            }*/
+            };
         }
         return ControlPanel;
     }(render.DisplayObjectContainer));
