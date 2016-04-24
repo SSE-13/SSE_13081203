@@ -21,25 +21,29 @@ function createMapEditor() {
     return world;
 }
 function onTileClick(tile) {
-    Undo_map.push(JSON.parse(JSON.stringify(mapData)));
-    storage.writeUndoFile(Undo_map);
+    var pos = new command.CommandA(tile.ownedRow, tile.ownedCol);
+    invoker.setCommand(pos);
     stage.addChild(UI(tile));
     if (tile.num == 1) {
         button.text = "不可走";
+        button.color = '#0000FF';
     }
     else {
         button.text = "可走";
+        button.color = '#FF0000';
     }
     button.onClick = function () {
         if (tile.num == 1) {
             tile.setWalkable(0);
             console.log(tile);
             button.text = "可走";
+            button.color = '#FF0000';
         }
         else {
             tile.setWalkable(1);
             console.log(tile);
             button.text = "不可走";
+            button.color = '#0000FF';
         }
         mapData[tile.ownedRow][tile.ownedCol] = tile.num;
     };
@@ -99,16 +103,14 @@ function Undo() {
     return undobutton;
 }
 function onUndoButtonClick() {
-    console.log(Undo_map.length);
-    if (Undo_map.length <= 0) {
-        alert("No Undo");
-    }
-    else {
-        console.log("Undo");
-        mapData = Undo_map.pop();
-        console.log(mapData);
+    if (invoker.canUndo()) {
+        invoker.undo();
+        var row = invoker.new_command.new_row;
+        var col = invoker.new_command.new_col;
         for (var i = 0; i < map_tile.length; i++) {
-            map_tile[i].setWalkable(mapData[map_tile[i].ownedRow][map_tile[i].ownedCol]);
+            if (map_tile[i].ownedRow == row && map_tile[i].ownedCol == col) {
+                map_tile[i].setWalkable(Math.abs(mapData[map_tile[i].ownedRow][map_tile[i].ownedCol] - 1));
+            }
         }
     }
 }
@@ -130,8 +132,9 @@ function materia() {
 var storage = data.Storage.getInstance();
 storage.readFile();
 var mapData = storage.mapData;
-var Undo_map = new Array();
 var map_tile = new Array();
+var invoker = new command.Invoker();
+invoker.init();
 var renderCore = new render.RenderCore();
 var eventCore = events.EventCore.getInstance();
 eventCore.init();
@@ -145,19 +148,13 @@ Materia.y = 130;
 var mapEditor = createMapEditor();
 stage.addChild(mapEditor);
 var button = new ui.Button();
-button.width = 200;
+button.width = 100;
 button.height = 30;
-button.x = 220;
-button.y = 100;
-button.color = '#cecdcd';
+button.x = 250;
+button.y = 250;
 var panel = new editor.ControlPanel();
 panel.x = 300;
-//panel.addChild(save);
-//panel.addChild(undo);
 stage.addChild(save);
 stage.addChild(undo);
 stage.addChild(button);
-stage.addChild(Materia);
-//stage.addChild(panel);
-//var a=new materiabutton; 
 renderCore.start(stage);
