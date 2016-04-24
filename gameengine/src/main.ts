@@ -223,10 +223,6 @@ stage.addChild(undo);
 stage.addChild(button);
 stage.addChild(Materia)
 
-<<<<<<< HEAD
+
 renderCore.start(stage,["Wall3.jpg","Wall4.jpg"]);
-=======
-renderCore.start(stage);
 
-
->>>>>>> 5f619e15397937900f486b9944143a478c04e02d
