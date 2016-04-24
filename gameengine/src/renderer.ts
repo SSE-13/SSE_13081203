@@ -113,7 +113,7 @@ module render {
 
 
         source;
-        //num=0;
+
         render(context: CanvasRenderingContext2D) {
 
             var image = imagePool[this.source];
@@ -135,6 +135,7 @@ module render {
 
         color = '#FF0000';
         num = 0;
+        
 
         strokeColor = "#000000"
 

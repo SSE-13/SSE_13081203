@@ -26,7 +26,6 @@ module editor {
             super.render(context);
         }
     }
-    
 
 
     export class Tile extends render.Rect {
@@ -42,15 +41,9 @@ module editor {
 
         public setWalkable(value) {
             this.color = value ? "#0000FF" : "#FF0000";
-            //this.source = value ? "wave.jpg":"yanshi.jpg"
-            this.num=value;
-
+            this.num = value;
         }
-
-        
-    
     }
-
     
     
     export class ControlPanel extends render.DisplayObjectContainer {
@@ -68,5 +61,4 @@ module editor {
         }
         
     }
-    
 }
