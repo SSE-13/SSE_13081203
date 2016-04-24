@@ -2,6 +2,7 @@
 
 var stage = new render.DisplayObjectContainer();
 
+
 function createMapEditor() {
     var world = new editor.WorldMap();
     var rows = mapData.length;
@@ -31,7 +32,6 @@ function createMapEditor() {
 }
 
 
-
 function onTileClick(tile: editor.Tile) {
     Undo_map.push(JSON.parse(JSON.stringify(mapData)));
     storage.writeUndoFile(Undo_map);
@@ -46,7 +46,7 @@ function UI(tile: editor.Tile) {
    
     var Attribute = new render.DisplayObjectContainer();
     Attribute.x=220;
-    Attribute.y=100;
+    Attribute.y=50;
     var Background = new render.Rect();
     Background.width = 200;
     Background.height = 150;
@@ -62,28 +62,33 @@ function UI(tile: editor.Tile) {
     Attribute.addChild(postion);
     
     var button = new ui.Button();
-            button.width = 100;
-            button.height = 30;
-            button.x=10;
-            button.y=50;
-            
-            if(mapData[tile.ownedRow][tile.ownedCol]==1){
-                button.text="不可走";
-                button
-                button.onClick = ()=> {
-                tile.setWalkable(0);
-                button.text="可走";
-                }
-            }else{
-                button.text="可走";
-                button.onClick = ()=> {
-                tile.setWalkable(1);
-                button.text="不可走";
-                }
-            }
-            Attribute.addChild(button);
-           return Attribute; 
-         }
+    button.width = 100;
+    button.height = 30;
+    button.x=10;
+    button.y=50;
+    if(mapData[tile.ownedRow][tile.ownedCol]==1){
+        button.text="不可走";
+    }else{
+        button.text="可走";
+    }
+    console.log(tile);
+    button.onClick = ()=> {
+        console.log(tile);
+        if(mapData[tile.ownedRow][tile.ownedCol]==1){
+            tile.setWalkable(0);
+            console.log(tile);
+            button.text="可走";
+            mapData[tile.ownedRow][tile.ownedCol] = 0;
+        }else{
+            tile.setWalkable(1);
+            button.text="不可走";
+            mapData[tile.ownedRow][tile.ownedCol] = 1;
+        }
+    }
+    Attribute.addChild(button);
+    return Attribute; 
+}
+         
 
 function Save() {
     
@@ -169,18 +174,21 @@ var eventCore = events.EventCore.getInstance();
 eventCore.init();
 
 var save = Save();
-save.x = -75;
+save.x = 220;
 var undo = Undo();
-undo.x = -75;
-undo.y = 50;
+undo.x = 350;
 var mapEditor = createMapEditor();
-//var stage = new render.DisplayObjectContainer();
+
 stage.addChild(mapEditor);
 
-var panel = new editor.ControlPanel();
-panel.x = 300;
-panel.addChild(save);
-panel.addChild(undo);
-stage.addChild(panel);
+
+//var panel = new editor.ControlPanel();
+//panel.x = 300;
+//panel.addChild(save);
+//panel.addChild(undo);
+stage.addChild(save);
+stage.addChild(undo);
+
+//stage.addChild(panel);
 
 renderCore.start(stage);

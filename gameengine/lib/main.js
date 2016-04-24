@@ -30,7 +30,7 @@ function onTileClick(tile) {
 function UI(tile) {
     var Attribute = new render.DisplayObjectContainer();
     Attribute.x = 220;
-    Attribute.y = 100;
+    Attribute.y = 50;
     var Background = new render.Rect();
     Background.width = 200;
     Background.height = 150;
@@ -50,19 +50,25 @@ function UI(tile) {
     button.y = 50;
     if (mapData[tile.ownedRow][tile.ownedCol] == 1) {
         button.text = "不可走";
-        button;
-        button.onClick = function () {
-            tile.setWalkable(0);
-            button.text = "可走";
-        };
     }
     else {
         button.text = "可走";
-        button.onClick = function () {
+    }
+    console.log(tile);
+    button.onClick = function () {
+        console.log(tile);
+        if (mapData[tile.ownedRow][tile.ownedCol] == 1) {
+            tile.setWalkable(0);
+            console.log(tile);
+            button.text = "可走";
+            mapData[tile.ownedRow][tile.ownedCol] = 0;
+        }
+        else {
             tile.setWalkable(1);
             button.text = "不可走";
-        };
-    }
+            mapData[tile.ownedRow][tile.ownedCol] = 1;
+        }
+    };
     Attribute.addChild(button);
     return Attribute;
 }
@@ -124,16 +130,16 @@ var renderCore = new render.RenderCore();
 var eventCore = events.EventCore.getInstance();
 eventCore.init();
 var save = Save();
-save.x = -75;
+save.x = 220;
 var undo = Undo();
-undo.x = -75;
-undo.y = 50;
+undo.x = 350;
 var mapEditor = createMapEditor();
-//var stage = new render.DisplayObjectContainer();
 stage.addChild(mapEditor);
-var panel = new editor.ControlPanel();
-panel.x = 300;
-panel.addChild(save);
-panel.addChild(undo);
-stage.addChild(panel);
+//var panel = new editor.ControlPanel();
+//panel.x = 300;
+//panel.addChild(save);
+//panel.addChild(undo);
+stage.addChild(save);
+stage.addChild(undo);
+//stage.addChild(panel);
 renderCore.start(stage);
