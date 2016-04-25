@@ -36,29 +36,27 @@ function materia() {
     return materia;
 }
 function onTileClick(tile) {
-    var pos = new command.CommandA(tile.ownedRow, tile.ownedCol);
-    invoker.setCommand(pos);
     stage.addChild(UI(tile));
-    if (tile.num == 1) {
+    if (tile.num % 2 == 1) {
         button.text = "不可走";
         click(false, tile);
         button.color = '#0000FF';
     }
-    else {
+    else if (tile.num % 2 == 0) {
         button.text = "可走";
         click(true, tile);
         button.color = '#FF0000';
     }
     button.onClick = function () {
         //点击可走不可走选择素材，可走素材1357可点，不可走2468可点，此时并不能更改地图图片
-        if (tile.num == 1) {
+        if (tile.num % 2 == 1) {
             //tile.setWalkable(0);
             console.log(tile);
             button.text = "可走";
             click(true, tile);
             button.color = '#FF0000';
         }
-        else {
+        else if (tile.num % 2 == 0) {
             //tile.setWalkable(1);
             console.log(tile);
             button.text = "不可走";
@@ -71,17 +69,25 @@ function onTileClick(tile) {
 function click(b, tile) {
     if (b == true) {
         M_button[1].onClick = function () {
-            alert("可走");
+            // alert("可走");
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
             tile.setWalkable(0);
         };
         M_button[3].onClick = function () {
-            tile.setWalkable2(0);
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(2);
         };
         M_button[5].onClick = function () {
-            tile.setWalkable3(0);
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(4);
         };
         M_button[7].onClick = function () {
-            tile.setWalkable4(0);
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(6);
         };
         M_button[2].onClick = function () {
         };
@@ -95,17 +101,25 @@ function click(b, tile) {
     if (b == false) {
         //不可走素材2468可点，点击地图图片更改，变为其他不可走图片
         M_button[2].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
             tile.setWalkable(1);
-            alert("不可走");
+            // alert("不可走");
         };
         M_button[4].onClick = function () {
-            tile.setWalkable2(1);
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(3);
         };
         M_button[6].onClick = function () {
-            tile.setWalkable3(1);
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(5);
         };
         M_button[8].onClick = function () {
-            tile.setWalkable4(1);
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(7);
         };
         M_button[1].onClick = function () {
         };
@@ -176,9 +190,10 @@ function onUndoButtonClick() {
         invoker.undo();
         var row = invoker.new_command.new_row;
         var col = invoker.new_command.new_col;
+        var num = invoker.new_command.new_num;
         for (var i = 0; i < map_tile.length; i++) {
             if (map_tile[i].ownedRow == row && map_tile[i].ownedCol == col) {
-                map_tile[i].setWalkable(Math.abs(mapData[map_tile[i].ownedRow][map_tile[i].ownedCol] - 1));
+                map_tile[i].setWalkable(num);
             }
         }
     }

@@ -29,20 +29,36 @@ var editor;
         }
         Tile.prototype.setWalkable = function (value) {
             // this.color = value ? "#0000FF" : "#FF0000";
-            this.source = value ? "water.jpg" : "Wall4.jpg";
+            // this.source = value ? "water.jpg":"Wall4.jpg";
             this.num = value;
-        };
-        Tile.prototype.setWalkable2 = function (value) {
-            this.source = value ? "grass.jpg" : "Wall3.jpg";
-            this.num = value;
-        };
-        Tile.prototype.setWalkable3 = function (value) {
-            this.source = value ? "Road2.jpg" : "Road.jpg";
-            this.num = value;
-        };
-        Tile.prototype.setWalkable4 = function (value) {
-            this.source = value ? "Wall1.jpg" : "Wall2.jpg";
-            this.num = value;
+            switch (value) {
+                case 0:
+                    this.source = "water.jpg";
+                    break;
+                case 1:
+                    this.source = "Wall4.jpg";
+                    break;
+                case 2:
+                    this.source = "grass.jpg";
+                    break;
+                case 3:
+                    this.source = "Wall3.jpg";
+                    break;
+                case 4:
+                    this.source = "Road2.jpg";
+                    break;
+                case 5:
+                    this.source = "Road.jpg";
+                    break;
+                case 6:
+                    this.source = "Wall1.jpg";
+                    break;
+                case 7:
+                    this.source = "Wall2.jpg";
+                    break;
+                default:
+                    break;
+            }
         };
         return Tile;
     }(render.Bitmap));
