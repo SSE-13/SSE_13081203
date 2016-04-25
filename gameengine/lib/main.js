@@ -50,14 +50,18 @@ function onTileClick(tile) {
     button.onClick = function () {
         //点击可走不可走选择素材，可走素材1357可点，不可走2468可点，此时并不能更改地图图片
         if (tile.num % 2 == 1) {
-            //tile.setWalkable(0);
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(0);
             console.log(tile);
             button.text = "可走";
             click(true, tile);
             button.color = '#FF0000';
         }
         else if (tile.num % 2 == 0) {
-            //tile.setWalkable(1);
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(1);
             console.log(tile);
             button.text = "不可走";
             click(false, tile);
