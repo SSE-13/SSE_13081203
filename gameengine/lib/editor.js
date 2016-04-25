@@ -29,7 +29,19 @@ var editor;
         }
         Tile.prototype.setWalkable = function (value) {
             // this.color = value ? "#0000FF" : "#FF0000";
-            this.source = value ? "Wall3.jpg" : "Wall4.jpg";
+            this.source = value ? "water.jpg" : "Wall4.jpg";
+            this.num = value;
+        };
+        Tile.prototype.setWalkable2 = function (value) {
+            this.source = value ? "grass.jpg" : "Wall3.jpg";
+            this.num = value;
+        };
+        Tile.prototype.setWalkable3 = function (value) {
+            this.source = value ? "Road2.jpg" : "Road.jpg";
+            this.num = value;
+        };
+        Tile.prototype.setWalkable4 = function (value) {
+            this.source = value ? "Wall1.jpg" : "Wall2.jpg";
             this.num = value;
         };
         return Tile;

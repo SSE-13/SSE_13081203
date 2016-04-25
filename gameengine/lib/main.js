@@ -75,13 +75,13 @@ function click(b, tile) {
             tile.setWalkable(0);
         };
         M_button[3].onClick = function () {
-            tile.setWalkable(0);
+            tile.setWalkable2(0);
         };
         M_button[5].onClick = function () {
-            tile.setWalkable(0);
+            tile.setWalkable3(0);
         };
         M_button[7].onClick = function () {
-            tile.setWalkable(0);
+            tile.setWalkable4(0);
         };
         M_button[2].onClick = function () {
         };
@@ -99,13 +99,13 @@ function click(b, tile) {
             alert("不可走");
         };
         M_button[4].onClick = function () {
-            tile.setWalkable(1);
+            tile.setWalkable2(1);
         };
         M_button[6].onClick = function () {
-            tile.setWalkable(1);
+            tile.setWalkable3(1);
         };
         M_button[8].onClick = function () {
-            tile.setWalkable(1);
+            tile.setWalkable4(1);
         };
         M_button[1].onClick = function () {
         };
@@ -213,5 +213,5 @@ stage.addChild(save);
 stage.addChild(undo);
 stage.addChild(button);
 stage.addChild(Materia);
-renderCore.start(stage, ["Wall3.jpg", "Wall4.jpg"]);
+renderCore.start(stage, ["Wall3.jpg", "Wall4.jpg", "Wall1.jpg", "Wall2.jpg", "Road.jpg", "Road2.jpg", "water.jpg", "grass.jpg"]);
 renderCore.start(stage);

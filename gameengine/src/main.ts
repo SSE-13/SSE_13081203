@@ -91,13 +91,13 @@ function click(b:boolean,tile: editor.Tile) {
             tile.setWalkable(0);
         }
         M_button[3].onClick = ()=> {
-            tile.setWalkable(0);
+            tile.setWalkable2(0);
         }
         M_button[5].onClick = ()=> {
-           tile.setWalkable(0);
+           tile.setWalkable3(0);
         }
         M_button[7].onClick = ()=> {
-            tile.setWalkable(0);
+            tile.setWalkable4(0);
         }
         M_button[2].onClick = ()=> {
             
@@ -119,13 +119,13 @@ function click(b:boolean,tile: editor.Tile) {
             
         }
         M_button[4].onClick = ()=> {
-            tile.setWalkable(1);
+            tile.setWalkable2(1);
         }
         M_button[6].onClick = ()=> {
-            tile.setWalkable(1);
+            tile.setWalkable3(1);
         }
         M_button[8].onClick = ()=> {
-             tile.setWalkable(1);
+             tile.setWalkable4(1);
         }
         M_button[1].onClick = ()=> {
        
@@ -288,7 +288,7 @@ stage.addChild(button);
 stage.addChild(Materia);
 
 
-renderCore.start(stage,["Wall3.jpg","Wall4.jpg"]);
+renderCore.start(stage,["Wall3.jpg","Wall4.jpg","Wall1.jpg","Wall2.jpg","Road.jpg","Road2.jpg","water.jpg","grass.jpg"]);
 
 renderCore.start(stage);
 

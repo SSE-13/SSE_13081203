@@ -41,8 +41,20 @@ module editor {
 
         public setWalkable(value) {
             // this.color = value ? "#0000FF" : "#FF0000";
-            this.source = value ? "Wall3.jpg":"Wall4.jpg";
-            this.num = value;
+            this.source = value ? "water.jpg":"Wall4.jpg";
+            this.num = value;           
+        }
+        public setWalkable2(value) {
+            this.source = value ? "grass.jpg":"Wall3.jpg";
+            this.num = value;           
+        }
+        public setWalkable3(value) {
+            this.source = value ? "Road2.jpg":"Road.jpg";
+            this.num = value;           
+        }
+        public setWalkable4(value) {
+            this.source = value ? "Wall1.jpg":"Wall2.jpg";
+            this.num = value;           
         }
     }
     
