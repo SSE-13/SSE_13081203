@@ -42,7 +42,6 @@ module editor {
         public setWalkable(value) {
             // this.color = value ? "#0000FF" : "#FF0000";
             this.source = value ? "Wall3.jpg":"Wall4.jpg";
-            console.log("777");
             this.num = value;
         }
     }

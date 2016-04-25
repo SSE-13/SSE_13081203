@@ -31,38 +31,115 @@ function createMapEditor() {
 
 }
 
+var M_button=new Array();
+function materia(){
+    var materia = new render.DisplayObjectContainer();
+    for(var i=1;i<9;i++){
+        M_button[i] = new ui.Button();
+        M_button[i].text='素材'+i;
+        M_button[i].width = 100;
+        M_button[i].height = 30;
+        M_button[i].color='#cecdcd';
+        M_button[i].y=Math.floor((i-1)/2)*30;
+        M_button[i].x=Math.abs((i%2-1)*100);
+        materia.addChild(M_button[i]);
+    }
+    return materia;
+}
 
 function onTileClick(tile: editor.Tile) {
 
     var pos = new command.CommandA(tile.ownedRow,tile.ownedCol);
     invoker.setCommand(pos);
     stage.addChild(UI(tile)); 
-    
      if(tile.num==1){
         button.text="不可走";
+        click(false,tile);
         button.color = '#0000FF';
     }else{
         button.text="可走";
+        click(true,tile);
         button.color = '#FF0000';
     }
     button.onClick = ()=> {
-
+//点击可走不可走选择素材，可走素材1357可点，不可走2468可点，此时并不能更改地图图片
         if(tile.num==1){
-            tile.setWalkable(0);
+            //tile.setWalkable(0);
             console.log(tile);
             button.text="可走";
+            click(true,tile);
             button.color = '#FF0000';
            
         }else{
-            tile.setWalkable(1);
+            //tile.setWalkable(1);
             console.log(tile);
             button.text="不可走";
+            click(false,tile);
             button.color = '#0000FF';
            
         }
         mapData[tile.ownedRow][tile.ownedCol] = tile.num;
     }      
+}
 
+
+
+function click(b:boolean,tile: editor.Tile) {
+    if(b==true){//可走素材1357可点，点击地图图片更改，变为其他可走图片
+        M_button[1].onClick = ()=> {
+            alert("可走");
+            tile.setWalkable(0);
+        }
+        M_button[3].onClick = ()=> {
+            tile.setWalkable(0);
+        }
+        M_button[5].onClick = ()=> {
+           tile.setWalkable(0);
+        }
+        M_button[7].onClick = ()=> {
+            tile.setWalkable(0);
+        }
+        M_button[2].onClick = ()=> {
+            
+        }
+        M_button[4].onClick = ()=> {
+           
+        }
+        M_button[6].onClick = ()=> {
+            
+        }
+        M_button[8].onClick = ()=> {
+             
+        }
+    }if(b==false){
+        //不可走素材2468可点，点击地图图片更改，变为其他不可走图片
+        M_button[2].onClick = ()=> {
+            tile.setWalkable(1);
+            alert("不可走");
+            
+        }
+        M_button[4].onClick = ()=> {
+            tile.setWalkable(1);
+        }
+        M_button[6].onClick = ()=> {
+            tile.setWalkable(1);
+        }
+        M_button[8].onClick = ()=> {
+             tile.setWalkable(1);
+        }
+        M_button[1].onClick = ()=> {
+       
+        }
+        M_button[3].onClick = ()=> {
+         
+        }
+        M_button[5].onClick = ()=> {
+           
+        }
+        M_button[7].onClick = ()=> {
+        
+        }
+    }
 }
 
 //UI
@@ -119,6 +196,8 @@ function onSaveButtonClick(){
    
 }
 
+
+
 function Undo() {
     
     var undobutton = new render.DisplayObjectContainer();
@@ -164,21 +243,6 @@ function onUndoButtonClick(){
 }
 
 
-function materia(){
-    var materia = new render.DisplayObjectContainer();
-    var M_button=new Array();
-    for(var i=1;i<9;i++){
-        M_button[i] = new ui.Button();
-        M_button[i].text='素材'+i;
-        M_button[i].width = 100;
-        M_button[i].height = 30;
-        M_button[i].color='#cecdcd';
-        M_button[i].y=Math.floor((i-1)/2)*30;
-        M_button[i].x=Math.abs((i%2-1)*100);
-        materia.addChild(M_button[i]);
-    }
-    return materia;
-}
 
 
 var storage = data.Storage.getInstance();
