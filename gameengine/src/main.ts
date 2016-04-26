@@ -310,7 +310,7 @@ stage.addChild(button);
 stage.addChild(Materia);
 
 
-renderCore.start(stage,["Wall3.jpg","Wall4.jpg","Wall1.jpg","Wall2.jpg","Road.jpg","Road2.jpg","water.jpg","grass.jpg"]);
+renderCore.start(stage,["grass.jpg","Wall4.jpg","water.jpg","Road.jpg","barrier1.jpg","barrier2.jpg","barrier3.jpg","barrier4.jpg"]);
 
 renderCore.start(stage);
 
