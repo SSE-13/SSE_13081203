@@ -45,28 +45,28 @@ module editor {
             this.num = value;
             switch (value) {
                 case 0:
-                     this.source = "water.jpg";
+                     this.source = "barrier1.jpg";
                     break;
                 case 1:
                      this.source = "Wall4.jpg";
                     break;
                 case 2:
-                     this.source = "grass.jpg";
+                     this.source = "barrier2.jpg";
                     break;
                 case 3:
-                     this.source = "Wall3.jpg";
+                     this.source = "water.jpg";
                     break;
                 case 4:
-                     this.source = "Road2.jpg";
+                     this.source = "barrier3.jpg";
                     break;
                 case 5:
                      this.source = "Road.jpg";
                     break;
                 case 6:
-                     this.source = "Wall1.jpg";
+                     this.source = "barrier4.jpg";
                     break;
                 case 7:
-                     this.source = "Wall2.jpg";
+                     this.source = "grass.jpg";
                     break;
             
                 default:
