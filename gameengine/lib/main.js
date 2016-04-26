@@ -73,21 +73,25 @@ function click(b, tile) {
             var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
             invoker.setCommand(pos);
             tile.setWalkable(0);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
         };
         M_button[3].onClick = function () {
             var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
             invoker.setCommand(pos);
             tile.setWalkable(2);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
         };
         M_button[5].onClick = function () {
             var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
             invoker.setCommand(pos);
             tile.setWalkable(4);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
         };
         M_button[7].onClick = function () {
             var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
             invoker.setCommand(pos);
             tile.setWalkable(6);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
         };
         M_button[2].onClick = function () {
         };
@@ -104,22 +108,26 @@ function click(b, tile) {
             var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
             invoker.setCommand(pos);
             tile.setWalkable(1);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
             // alert("不可走");
         };
         M_button[4].onClick = function () {
             var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
             invoker.setCommand(pos);
             tile.setWalkable(3);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
         };
         M_button[6].onClick = function () {
             var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
             invoker.setCommand(pos);
             tile.setWalkable(5);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
         };
         M_button[8].onClick = function () {
             var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
             invoker.setCommand(pos);
             tile.setWalkable(7);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
         };
         M_button[1].onClick = function () {
         };
