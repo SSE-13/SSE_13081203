@@ -2,7 +2,7 @@
 module data {
     
     var xmlhttp :XMLHttpRequest;
-
+    var mapData;
     export class Storage {
         
 
@@ -15,9 +15,23 @@ module data {
             return Storage._instance;
         }
     
-       public readFile() {
+       public readFile(callback) { 
            
-          
+           
+            var state_Change = ()=>{
+            if(xmlhttp.readyState == 4){
+                if(xmlhttp.status == 200){               
+                var obj = JSON.parse(xmlhttp.responseText);
+                this.mapData = obj.map;
+                callback();     
+           }
+           else{
+               
+               }
+            }        
+        }
+              
+              
            if(XMLHttpRequest){
                xmlhttp =  new XMLHttpRequest();
            }
@@ -32,18 +46,7 @@ module data {
                alert("not support");
            }
                  
-      function state_Change(){
-      if(xmlhttp.readyState == 4){
-           if(xmlhttp.status == 200){
-                
-                var content = JSON.parse(xmlhttp.responseText);
-                alert(content);
-           }
-           else{
-               alert("Problem");
-               }
-            }        
-        }
+     
            
            // var map_path = __dirname + "/map.json"
            // var content = fs.readFileSync(map_path, "utf-8");

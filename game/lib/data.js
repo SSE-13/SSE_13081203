@@ -1,6 +1,7 @@
 var data;
 (function (data) {
     var xmlhttp;
+    var mapData;
     var Storage = (function () {
         function Storage() {
         }
@@ -10,7 +11,19 @@ var data;
             }
             return Storage._instance;
         };
-        Storage.prototype.readFile = function () {
+        Storage.prototype.readFile = function (callback) {
+            var _this = this;
+            var state_Change = function () {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        var obj = JSON.parse(xmlhttp.responseText);
+                        _this.mapData = obj.map;
+                        callback();
+                    }
+                    else {
+                    }
+                }
+            };
             if (XMLHttpRequest) {
                 xmlhttp = new XMLHttpRequest();
             }
@@ -21,17 +34,6 @@ var data;
             }
             else {
                 alert("not support");
-            }
-            function state_Change() {
-                if (xmlhttp.readyState == 4) {
-                    if (xmlhttp.status == 200) {
-                        var content = JSON.parse(xmlhttp.responseText);
-                        alert(content);
-                    }
-                    else {
-                        alert("Problem");
-                    }
-                }
             }
             // var map_path = __dirname + "/map.json"
             // var content = fs.readFileSync(map_path, "utf-8");

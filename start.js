@@ -126,6 +126,7 @@ function startTypescriptAutoCompiler() {
 
 
 function typescriptCompiler(req, res, next) {
+    console.log ("-----")
     var errorMessage = "";
     var tsc_path;
     if (os.platform() == 'win32') {

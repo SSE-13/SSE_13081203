@@ -113,17 +113,20 @@ module render {
 
 
         source;
-
+   
         render(context: CanvasRenderingContext2D) {
-
+             
             var image = imagePool[this.source];
+           
             if (image) {
-                context.drawImage(image, 0, 0);
+                context.drawImage(image, 0, 0,this.width,this.height);
+ 
             }
             else {
                 context.font = "20px Arial";
                 context.fillStyle = '#000000';
                 context.fillText('错误的URL', 0, 20);
+                
             }
         }
 
