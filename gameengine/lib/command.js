@@ -36,18 +36,20 @@ var command;
     command_1.Command = Command;
     var CommandA = (function (_super) {
         __extends(CommandA, _super);
-        function CommandA(row, col) {
+        function CommandA(row, col, num) {
             _super.call(this);
             this.row = row;
             this.col = col;
+            this.num = num;
         }
         CommandA.prototype.execute = function () {
             console.log("execute " + this.row + this.col);
         };
-        CommandA.prototype.undo = function (row, col) {
-            console.log("Undo " + this.row + this.col);
+        CommandA.prototype.undo = function (row, col, num) {
+            console.log("Undo " + this.row + this.col + this.num);
             this.getNewRow(this.row);
             this.getNewCol(this.col);
+            this.getNewNum(this.num);
         };
         CommandA.prototype.setNewRow = function () {
             return this.new_row;
@@ -60,6 +62,12 @@ var command;
         };
         CommandA.prototype.getNewCol = function (col) {
             this.new_col = col;
+        };
+        CommandA.prototype.setNewNum = function () {
+            return this.new_num;
+        };
+        CommandA.prototype.getNewNum = function (num) {
+            this.new_num = num;
         };
         return CommandA;
     }(Command));

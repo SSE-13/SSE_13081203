@@ -43,13 +43,17 @@ export class CommandA extends Command{
     
     public row;
     public col;
+    public num;
     public new_row;
     public new_col;
+    public new_num;
 
-    constructor(row,col){
+    constructor(row,col,num){
         super();
         this.row = row;
         this.col = col;
+        this.num = num;
+        
         
         
     }
@@ -59,10 +63,11 @@ export class CommandA extends Command{
         
     }
     
-    public undo(row,col){
-        console.log ("Undo " + this.row + this.col);
+    public undo(row,col,num){
+        console.log ("Undo " + this.row + this.col+ this.num);
         this.getNewRow(this.row);
         this.getNewCol(this.col);
+        this.getNewNum(this.num);
         
         
         
@@ -82,6 +87,14 @@ export class CommandA extends Command{
     
     getNewCol(col){
         this.new_col = col;
+    }
+    
+    setNewNum(){
+        return this.new_num;
+    }
+    
+    getNewNum(num){
+        this.new_num = num;
     }
 }
     

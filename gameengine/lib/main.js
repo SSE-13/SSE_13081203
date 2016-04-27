@@ -20,38 +20,131 @@ function createMapEditor() {
     }
     return world;
 }
+var M_button = new Array();
+function materia() {
+    var materia = new render.DisplayObjectContainer();
+    for (var i = 0; i < 8; i++) {
+        M_button[i] = new ui.Button();
+        if (i % 2 == 0) {
+            M_button[i].text = '星空' + ((i + 2) / 2);
+        }
+        else {
+            M_button[i].text = '障碍' + ((i + 1) / 2);
+        }
+        M_button[i].width = 100;
+        M_button[i].height = 30;
+        M_button[i].color = '#cecdcd';
+        M_button[i].y = Math.floor(i / 2) * 30;
+        M_button[i].x = Math.abs((i % 2) * 100);
+        materia.addChild(M_button[i]);
+    }
+    return materia;
+}
 function onTileClick(tile) {
-    var pos = new command.CommandA(tile.ownedRow, tile.ownedCol);
-    invoker.setCommand(pos);
     stage.addChild(UI(tile));
-    if (tile.num == 1) {
+    if (tile.num % 2 == 1) {
         button.text = "不可走";
+        click(false, tile);
         button.color = '#0000FF';
     }
-    else {
+    else if (tile.num % 2 == 0) {
         button.text = "可走";
+        click(true, tile);
         button.color = '#FF0000';
     }
     button.onClick = function () {
-        if (tile.num == 1) {
-            tile.setWalkable(0);
-            console.log(tile);
+        //点击可走不可走选择素材，可走素材1357可点，不可走2468可点，此时并不能更改地图图片
+        if (tile.num % 2 == 1) {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
             button.text = "可走";
+            click(true, tile);
             button.color = '#FF0000';
         }
-        else {
-            tile.setWalkable(1);
-            console.log(tile);
+        else if (tile.num % 2 == 0) {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
             button.text = "不可走";
+            click(false, tile);
             button.color = '#0000FF';
         }
-        mapData[tile.ownedRow][tile.ownedCol] = tile.num;
     };
+}
+function click(b, tile) {
+    if (b == true) {
+        M_button[0].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(0);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        };
+        M_button[2].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(2);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        };
+        M_button[4].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(4);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        };
+        M_button[6].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(6);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        };
+        M_button[1].onClick = function () {
+        };
+        M_button[3].onClick = function () {
+        };
+        M_button[5].onClick = function () {
+        };
+        M_button[7].onClick = function () {
+        };
+    }
+    if (b == false) {
+        //不可走素材2468可点，点击地图图片更改，变为其他不可走图片
+        M_button[1].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(1);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        };
+        M_button[3].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(3);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        };
+        M_button[5].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(5);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        };
+        M_button[7].onClick = function () {
+            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+            invoker.setCommand(pos);
+            tile.setWalkable(7);
+            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+        };
+        M_button[0].onClick = function () {
+        };
+        M_button[2].onClick = function () {
+        };
+        M_button[4].onClick = function () {
+        };
+        M_button[6].onClick = function () {
+        };
+    }
 }
 //UI
 function UI(tile) {
     var Attribute = new render.DisplayObjectContainer();
-    Attribute.x = 220;
+    Attribute.x = 420;
     Attribute.y = 50;
     var Background = new render.Rect();
     Background.width = 200;
@@ -107,11 +200,16 @@ function onUndoButtonClick() {
         invoker.undo();
         var row = invoker.new_command.new_row;
         var col = invoker.new_command.new_col;
+        var num = invoker.new_command.new_num;
         for (var i = 0; i < map_tile.length; i++) {
             if (map_tile[i].ownedRow == row && map_tile[i].ownedCol == col) {
-                map_tile[i].setWalkable(Math.abs(mapData[map_tile[i].ownedRow][map_tile[i].ownedCol] - 1));
+                map_tile[i].setWalkable(num);
+                mapData[map_tile[i].ownedRow][map_tile[i].ownedCol] = map_tile[i].num;
             }
         }
+    }
+    else {
+        alert("No Undo!");
     }
 }
 var storage = data.Storage.getInstance();
@@ -124,19 +222,25 @@ var renderCore = new render.RenderCore();
 var eventCore = events.EventCore.getInstance();
 eventCore.init();
 var save = Save();
-save.x = 220;
+save.x = 420;
 var undo = Undo();
-undo.x = 350;
+undo.x = 550;
+var Materia = materia();
+Materia.x = 420;
+Materia.y = 130;
 var mapEditor = createMapEditor();
 stage.addChild(mapEditor);
 var button = new ui.Button();
-button.width = 100;
+button.width = 200;
 button.height = 30;
-button.x = 250;
-button.y = 250;
+button.color = "#cecdcd";
+button.x = 420;
+button.y = 100;
 var panel = new editor.ControlPanel();
-panel.x = 300;
+panel.x = 500;
 stage.addChild(save);
 stage.addChild(undo);
 stage.addChild(button);
+stage.addChild(Materia);
+renderCore.start(stage, ["space2.jpg", "space1.jpg", "space3.jpg", "Road.jpg", "barrier1.jpg", "barrier2.jpg", "barrier3.jpg", "barrier4.jpg"]);
 renderCore.start(stage);

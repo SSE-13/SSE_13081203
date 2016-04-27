@@ -113,12 +113,15 @@ module render {
 
 
         source;
+        num = 0;
+        width=150;
+        height=150;
 
         render(context: CanvasRenderingContext2D) {
 
             var image = imagePool[this.source];
             if (image) {
-                context.drawImage(image, 0, 0);
+                context.drawImage(image, 0, 0,this.width,this.height);
             }
             else {
                 context.font = "20px Arial";

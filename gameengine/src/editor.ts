@@ -28,7 +28,7 @@ module editor {
     }
 
 
-    export class Tile extends render.Rect {
+    export class Tile extends render.Bitmap {
 
 
         public ownedRow: number;
@@ -40,9 +40,51 @@ module editor {
         }
 
         public setWalkable(value) {
-            this.color = value ? "#0000FF" : "#FF0000";
+            // this.color = value ? "#0000FF" : "#FF0000";
+            // this.source = value ? "water.jpg":"Wall4.jpg";
             this.num = value;
+            switch (value) {
+                case 0:
+                     this.source = "space1.jpg";                    
+                    break;
+                case 1:
+                     this.source = "barrier1.jpg";
+                    break;
+                case 2:                     
+                     this.source = "space3.jpg";
+                    break;
+                case 3:
+                     this.source = "barrier2.jpg";
+                    break;
+                case 4:                    
+                     this.source = "Road.jpg";
+                    break;
+                case 5:
+                     this.source = "barrier3.jpg";
+                    break;
+                case 6:                    
+                     this.source = "space2.jpg";
+                    break;
+                case 7:
+                     this.source = "barrier4.jpg";
+                    break;
+            
+                default:
+                    break;
+            }           
         }
+        /*public setWalkable2(value) {
+            this.source = value ? "grass.jpg":"Wall3.jpg";
+            this.num = value;           
+        }
+        public setWalkable3(value) {
+            this.source = value ? "Road2.jpg":"Road.jpg";
+            this.num = value;           
+        }
+        public setWalkable4(value) {
+            this.source = value ? "Wall1.jpg":"Wall2.jpg";
+            this.num = value;           
+        }*/
     }
     
     
@@ -50,14 +92,7 @@ module editor {
         
         constructor(){
             super();
-            /*var button = new ui.Button();
-            button.text = "Hello";
-            button.width = 100;
-            button.height = 50;
-            this.addChild(button);
-            button.onClick = ()=> {
-                alert(111);
-            }*/
+
         }
         
     }
