@@ -4,6 +4,9 @@ module ui {
 
     export class Button extends render.DisplayObjectContainer {
 
+        
+        public name:string;
+        
         public onClick: Function;
         public get text(): string {
             return this._text;
@@ -66,7 +69,7 @@ module ui {
 
             eventCore.register(this, events.displayObjectRectHitTest, () => {
                 if (this.onClick) {
-                    this.onClick();
+                    this.onClick(this);
                 }
             });
 

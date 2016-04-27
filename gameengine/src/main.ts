@@ -31,7 +31,7 @@ function createMapEditor() {
 
 }
 
-var M_button=new Array();
+var M_button:Array<ui.Button>=new Array();
 function materia(){
     var materia = new render.DisplayObjectContainer();
     for(var i=0;i <8;i++){
@@ -56,7 +56,7 @@ function onTileClick(tile: editor.Tile) {
 
 
     stage.addChild(UI(tile)); 
-     if(tile.num%2 == 1){
+    if(tile.num%2 == 1){
         button.text="不可走";
         click(false,tile);
         button.color = '#0000FF';
@@ -64,6 +64,7 @@ function onTileClick(tile: editor.Tile) {
         button.text="可走";
         click(true,tile);
         button.color = '#FF0000';
+
     }
     button.onClick = ()=> {
 //点击可走不可走选择素材，可走素材1357可点，不可走2468可点，此时并不能更改地图图片
@@ -73,8 +74,7 @@ function onTileClick(tile: editor.Tile) {
             button.text="可走";
             click(true,tile);
             button.color = '#FF0000';
-            
-           
+    
         }else if(tile.num%2 == 0){
             var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
             invoker.setCommand(pos);
@@ -91,88 +91,48 @@ function onTileClick(tile: editor.Tile) {
 
 function click(b:boolean,tile: editor.Tile) {
     if(b==true){//可走素材1357可点，点击地图图片更改，变为其他可走图片
-        M_button[0].onClick = ()=> {
-           
-            var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(0);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-            
+        for(var i=0; i <8; i++){
+            if(i%2 == 0){
+               
+                M_button[i].name = i.toString();
+                 
+                M_button[i].onClick = (M_button)=> {
+                    
+                    var buttonIndex = parseInt(M_button.name);
+                    var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
+                    invoker.setCommand(pos);
+                    if(tile != map_tile[63]){
+                    tile.setWalkable(buttonIndex);
+                    mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+                }
+                 if(tile == map_tile[63]){
+                    alert("Can't change");
+                }
+            }
+        }else{
+            M_button[i].onClick = (M_button)=> {
+                
+            }
         }
-        M_button[2].onClick = ()=> {
-            var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(2);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-            
-        }
-        M_button[4].onClick = ()=> {
-            var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(4);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-            
-        }
-        M_button[6].onClick = ()=> {
-            var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(6);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-            
-        }
-        M_button[1].onClick = ()=> {
-            
-        }
-        M_button[3].onClick = ()=> {
-           
-        }
-        M_button[5].onClick = ()=> {
-            
-        }
-        M_button[7].onClick = ()=> {
-             
-        }
-    }if(b==false){
-        //不可走素材2468可点，点击地图图片更改，变为其他不可走图片
-        M_button[1].onClick = ()=> {
-            var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(1);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-            
-        }
-        M_button[3].onClick = ()=> {
-            var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(3);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-            
-        }
-        M_button[5].onClick = ()=> {
-            var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(5);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-            
-        }
-        M_button[7].onClick = ()=> {
-            var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(7);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-            
-        }
-        M_button[0].onClick = ()=> {
+    }
        
-        }
-        M_button[2].onClick = ()=> {
-         
-        }
-        M_button[4].onClick = ()=> {
-           
-        }
-        M_button[6].onClick = ()=> {
-        
+    }if(b==false){
+        for(var i=0; i <8; i++){
+            if(i%2 == 1){
+                M_button[i].name = i.toString();
+                M_button[i].onClick = (M_button)=> {
+                    
+                    var buttonIndex = parseInt(M_button.name);
+                    var pos = new command.CommandA(tile.ownedRow,tile.ownedCol,tile.num);
+                    invoker.setCommand(pos);
+                    tile.setWalkable(buttonIndex);
+                    mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+                }
+            }else{
+                 M_button[i].onClick = (M_button)=> {
+                     
+                 }
+            }
         }
     }
 }
@@ -269,6 +229,7 @@ function onUndoButtonClick(){
         for(var i=0; i < map_tile.length; i++){
             if(map_tile[i].ownedRow==row && map_tile[i].ownedCol==col){
                  map_tile[i].setWalkable(num);
+                 console.log(i);
                  mapData[map_tile[i].ownedRow][map_tile[i].ownedCol] = map_tile[i].num;
             }
            

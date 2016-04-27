@@ -28,8 +28,6 @@ var editor;
             _super.call(this);
         }
         Tile.prototype.setWalkable = function (value) {
-            // this.color = value ? "#0000FF" : "#FF0000";
-            // this.source = value ? "water.jpg":"Wall4.jpg";
             this.num = value;
             switch (value) {
                 case 0:
