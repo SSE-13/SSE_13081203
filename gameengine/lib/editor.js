@@ -33,28 +33,28 @@ var editor;
             this.num = value;
             switch (value) {
                 case 0:
-                    this.source = "barrier1.jpg";
+                    this.source = "space1.jpg";
                     break;
                 case 1:
-                    this.source = "Wall4.jpg";
+                    this.source = "barrier1.jpg";
                     break;
                 case 2:
-                    this.source = "barrier2.jpg";
+                    this.source = "space3.jpg";
                     break;
                 case 3:
-                    this.source = "water.jpg";
+                    this.source = "barrier2.jpg";
                     break;
                 case 4:
-                    this.source = "barrier3.jpg";
-                    break;
-                case 5:
                     this.source = "Road.jpg";
                     break;
+                case 5:
+                    this.source = "barrier3.jpg";
+                    break;
                 case 6:
-                    this.source = "barrier4.jpg";
+                    this.source = "space2.jpg";
                     break;
                 case 7:
-                    this.source = "grass.jpg";
+                    this.source = "barrier4.jpg";
                     break;
                 default:
                     break;

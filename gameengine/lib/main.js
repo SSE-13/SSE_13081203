@@ -25,7 +25,12 @@ function materia() {
     var materia = new render.DisplayObjectContainer();
     for (var i = 1; i < 9; i++) {
         M_button[i] = new ui.Button();
-        M_button[i].text = '素材' + i;
+        if (i % 2 == 0) {
+            M_button[i].text = '障碍' + (i / 2);
+        }
+        else {
+            M_button[i].text = '星空' + ((i + 1) / 2);
+        }
         M_button[i].width = 100;
         M_button[i].height = 30;
         M_button[i].color = '#cecdcd';
@@ -232,5 +237,5 @@ stage.addChild(save);
 stage.addChild(undo);
 stage.addChild(button);
 stage.addChild(Materia);
-renderCore.start(stage, ["grass.jpg", "Wall4.jpg", "water.jpg", "Road.jpg", "barrier1.jpg", "barrier2.jpg", "barrier3.jpg", "barrier4.jpg"]);
+renderCore.start(stage, ["space2.jpg", "space1.jpg", "space3.jpg", "Road.jpg", "barrier1.jpg", "barrier2.jpg", "barrier3.jpg", "barrier4.jpg"]);
 renderCore.start(stage);
