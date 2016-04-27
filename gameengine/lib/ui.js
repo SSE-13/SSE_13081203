@@ -26,7 +26,7 @@ var ui;
             this.addChild(this.label);
             eventCore.register(this, events.displayObjectRectHitTest, function () {
                 if (_this.onClick) {
-                    _this.onClick();
+                    _this.onClick(_this);
                 }
             });
         }

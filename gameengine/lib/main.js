@@ -72,73 +72,45 @@ function onTileClick(tile) {
 }
 function click(b, tile) {
     if (b == true) {
-        M_button[0].onClick = function () {
-            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(0);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-        };
-        M_button[2].onClick = function () {
-            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(2);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-        };
-        M_button[4].onClick = function () {
-            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(4);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-        };
-        M_button[6].onClick = function () {
-            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(6);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-        };
-        M_button[1].onClick = function () {
-        };
-        M_button[3].onClick = function () {
-        };
-        M_button[5].onClick = function () {
-        };
-        M_button[7].onClick = function () {
-        };
+        for (var i = 0; i < 8; i++) {
+            if (i % 2 == 0) {
+                M_button[i].name = i.toString();
+                M_button[i].onClick = function (M_button) {
+                    var buttonIndex = parseInt(M_button.name);
+                    var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+                    invoker.setCommand(pos);
+                    if (tile != map_tile[63]) {
+                        tile.setWalkable(buttonIndex);
+                        mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+                    }
+                    if (tile == map_tile[63]) {
+                        alert("Can't change");
+                    }
+                };
+            }
+            else {
+                M_button[i].onClick = function (M_button) {
+                };
+            }
+        }
     }
     if (b == false) {
-        //不可走素材2468可点，点击地图图片更改，变为其他不可走图片
-        M_button[1].onClick = function () {
-            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(1);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-        };
-        M_button[3].onClick = function () {
-            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(3);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-        };
-        M_button[5].onClick = function () {
-            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(5);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-        };
-        M_button[7].onClick = function () {
-            var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
-            invoker.setCommand(pos);
-            tile.setWalkable(7);
-            mapData[tile.ownedRow][tile.ownedCol] = tile.num;
-        };
-        M_button[0].onClick = function () {
-        };
-        M_button[2].onClick = function () {
-        };
-        M_button[4].onClick = function () {
-        };
-        M_button[6].onClick = function () {
-        };
+        for (var i = 0; i < 8; i++) {
+            if (i % 2 == 1) {
+                M_button[i].name = i.toString();
+                M_button[i].onClick = function (M_button) {
+                    var buttonIndex = parseInt(M_button.name);
+                    var pos = new command.CommandA(tile.ownedRow, tile.ownedCol, tile.num);
+                    invoker.setCommand(pos);
+                    tile.setWalkable(buttonIndex);
+                    mapData[tile.ownedRow][tile.ownedCol] = tile.num;
+                };
+            }
+            else {
+                M_button[i].onClick = function (M_button) {
+                };
+            }
+        }
     }
 }
 //UI
@@ -204,6 +176,7 @@ function onUndoButtonClick() {
         for (var i = 0; i < map_tile.length; i++) {
             if (map_tile[i].ownedRow == row && map_tile[i].ownedCol == col) {
                 map_tile[i].setWalkable(num);
+                console.log(i);
                 mapData[map_tile[i].ownedRow][map_tile[i].ownedCol] = map_tile[i].num;
             }
         }
