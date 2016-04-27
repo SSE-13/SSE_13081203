@@ -18,21 +18,13 @@ function createMapEditor(mapData) {
     }
     return world;
 }
-var pos = [];
-for (var i = 0; i < 2; i++) {
-    pos[i] = [];
-    for (var j = 0; j < 2; j++) {
-        pos[i][j] = 7;
-    }
-}
+var startPosition = { x: 7, y: 7 };
+var endPosition = { x: 1, y: 1 };
 function onTileClick(tile) {
-    pos[0][0] = pos[1][0];
-    pos[0][1] = pos[1][1];
-    pos[1][0] = tile.ownedCol;
-    pos[1][1] = tile.ownedRow;
-    body.run(mapEditor.grid);
-    ticker.start([body]);
-    console.log(pos);
+    if (!body.isWalk) {
+        body.run(mapEditor.grid, tile);
+        ticker.start([body]);
+    }
 }
 var mapEditor;
 var boyShape;
@@ -45,8 +37,8 @@ var onReadFileSuccess = function () {
     stage.addChild(mapEditor);
     boyShape = new game.BoyShape();
     body = new game.BoyBody(boyShape);
-    body.x = 350;
-    body.y = 350;
+    body.x = boyShape.x = 350;
+    body.y = boyShape.y = 350;
     stage.addChild(boyShape);
 };
 storage.readFile(onReadFileSuccess);
@@ -54,4 +46,4 @@ var renderCore = new render.RenderCore();
 var eventCore = events.EventCore.getInstance();
 eventCore.init();
 var stage = new render.DisplayObjectContainer();
-renderCore.start(stage, ["character.png"]);
+renderCore.start(stage, ["character.png", "space2.jpg", "space1.jpg", "space3.jpg", "Road.jpg", "barrier1.jpg", "barrier2.jpg", "barrier3.jpg", "barrier4.jpg"]);

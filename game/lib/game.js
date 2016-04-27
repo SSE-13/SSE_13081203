@@ -23,10 +23,10 @@ var game;
             this.grid = grid;
             for (var col = 0; col < rows; col++) {
                 for (var row = 0; row < cols; row++) {
-                    if (mapData[col][row] == 0) {
+                    if (mapData[col][row] % 2 == 0) {
                         grid.setWalkable(row, col, true);
                     }
-                    if (mapData[col][row] == 1) {
+                    if (mapData[col][row] % 2 == 1) {
                         grid.setWalkable(row, col, false);
                     }
                 }
@@ -44,10 +44,38 @@ var game;
             _super.call(this);
         }
         Tile.prototype.setWalkable = function (value) {
-            this.color = value ? "#0000FF" : "#FF0000";
+            this.num = value;
+            switch (value) {
+                case 0:
+                    this.source = "space1.jpg";
+                    break;
+                case 1:
+                    this.source = "barrier1.jpg";
+                    break;
+                case 2:
+                    this.source = "space3.jpg";
+                    break;
+                case 3:
+                    this.source = "barrier2.jpg";
+                    break;
+                case 4:
+                    this.source = "Road.jpg";
+                    break;
+                case 5:
+                    this.source = "barrier3.jpg";
+                    break;
+                case 6:
+                    this.source = "space2.jpg";
+                    break;
+                case 7:
+                    this.source = "barrier4.jpg";
+                    break;
+                default:
+                    break;
+            }
         };
         return Tile;
-    }(render.Rect));
+    }(render.Bitmap));
     game.Tile = Tile;
     var BoyShape = (function (_super) {
         __extends(BoyShape, _super);
@@ -71,18 +99,24 @@ var game;
             this.n = 1; // 为了让计算速度的地方在速度改变前只执行一次 
             this.vx0 = 5; // x方向速度
             this.vy0 = 5; // y方向速度
+            this.isWalk = false;
         }
-        BoyBody.prototype.run = function (grid) {
-            grid.setStartNode(pos[0][0], pos[0][1]);
-            console.log(pos[0][0], pos[0][1]);
-            grid.setEndNode(pos[1][0], pos[1][1]);
+        BoyBody.prototype.run = function (grid, tile) {
+            endPosition = { x: tile.ownedCol, y: tile.ownedRow };
+            grid.setStartNode(startPosition.x, startPosition.y);
+            grid.setEndNode(endPosition.x, endPosition.y);
             var findpath = new astar.AStar();
             findpath.setHeurisitic(findpath.diagonal);
             var result = findpath.findPath(grid);
             this.path = findpath._path;
-            for (var i = 0; i < this.path.length; i++) {
-                this.x_Array[i] = this.path[i].x;
-                this.y_Array[i] = this.path[i].y;
+            if (result) {
+                startPosition.x = endPosition.x;
+                startPosition.y = endPosition.y;
+                this.isWalk = true;
+                for (var i = 0; i < this.path.length; i++) {
+                    this.x_Array[i] = this.path[i].x;
+                    this.y_Array[i] = this.path[i].y;
+                }
             }
             console.log(this.path);
             console.log(grid.toString());
@@ -91,7 +125,6 @@ var game;
             for (var i = 1; i < this.x_Array.length; i++) {
                 this.x_move = this.x / 50;
                 this.y_move = this.y / 50;
-                console.log(this.x_move, this.x_Array[i - 1], this.y_move, this.y_Array[i - 1]);
                 if (this.x_move < this.x_Array[i - 1] + 0.02 && this.x_move >= this.x_Array[i - 1] && this.y_move < this.y_Array[i - 1] + 0.02 && this.y_move >= this.y_Array[i - 1] && this.n == i) {
                     this.n++;
                     this.dx = this.x_Array[i] - this.x_Array[i - 1];
@@ -115,11 +148,15 @@ var game;
                         this.vy = -this.vy0;
                     }
                 }
-                if (this.x_move < pos[1][0] + 0.02 && this.x_move >= pos[1][0] && this.y_move >= pos[1][1] && this.y_move < pos[1][1] + 0.02) {
+                if (this.x_move < endPosition.x + 0.02 &&
+                    this.x_move >= endPosition.x &&
+                    this.y_move >= endPosition.y &&
+                    this.y_move < endPosition.y + 0.02) {
                     this.vx = 0;
                     this.vy = 0;
                     this.path = null;
                     this.n = 1;
+                    this.isWalk = false;
                 }
             }
             this.y += duringTime * this.vy;
